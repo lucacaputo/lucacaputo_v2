@@ -1,10 +1,13 @@
 import HomeHeader from "../components/HomeHeader";
+import CanvasContext from "../contextes/CanvasContext";
 
 const Home = () => {
   return (
-    <div>
-      <HomeHeader />
-    </div>    
+    <CanvasContext>
+      <div>
+          <HomeHeader />
+      </div>   
+    </CanvasContext> 
   );
 }
 
