@@ -6,6 +6,7 @@ const Wrapper: React.FC = ({ children }) => {
         <div className="AppWrapper">
             <Head>
                 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+                <title>Luca Caputo</title>
             </Head>
             { children }
             <style jsx>{`

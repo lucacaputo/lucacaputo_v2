@@ -25,8 +25,13 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ color, offset, z }) => {
             for (let i = 0; i < w; i++) {
                 let p = config.amplitude.interpolate(v => v);
                 ctx.lineTo(i, h-150 + Math.sin((i * config.length.getValue()) + increment + offset) * p.getValue());
-                ctx.lineTo(i, -(h-150));
             }
+            ctx.lineTo(w, -(h-50));
+            ctx.lineTo(-w, 0);
+            ctx.lineTo(0, h-50);
+            ctx.closePath();
+            ctx.fillStyle = color;
+            ctx.fill();
             ctx.strokeStyle = color;
             ctx.stroke();
             increment += config.frequency.getValue();

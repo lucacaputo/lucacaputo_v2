@@ -132,7 +132,7 @@ const HomeHeader: React.FC = () => {
             </header>
             <style jsx>{`
                 header {
-                    height: 100vh;
+                    height: 90vh;
                     width: 100%;
                     position: relative;
                     display: flex;
