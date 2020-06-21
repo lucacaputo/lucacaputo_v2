@@ -51,11 +51,37 @@ const HomeHeader: React.FC = () => {
         lastTime: 0,
     });
     const onMouseMove = (evt: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        let direction;
         let time = Date.now();
         const [x, y] = [evt.clientX, evt.clientY];
-        if (x >= lastX) direction = "right";
-        else direction = "left";
+        const direction = x >= lastX ? "right" : "left";
+        let pixelsTravelled = Math.sqrt((Math.pow(Math.abs(x - lastX), 2) + Math.pow(Math.abs(y - lastY), 2)));
+        let velocity = Math.abs(pixelsTravelled / (time - lastTime));
+        updateMouse({
+            lastX: x,
+            lastY: y,
+            lastTime: time,
+        });
+        //update wave
+        const nums = {
+            frequency: config.frequency.getValue(),
+            amplitude: config.amplitude.getValue(),
+            length: config.length.getValue(),
+        }
+        update({
+            ...nums,
+            frequency: direction === "left" 
+                ? velocity/100 > MAX_SPEED 
+                    ? MAX_SPEED : velocity/100
+                : velocity/100 > MAX_SPEED
+                    ? -MAX_SPEED : -velocity/100,
+            amplitude: velocity * 10 <= MAX_AMP ? velocity*10 : MAX_AMP,
+        });
+    }
+    const onTouchMove = (evt: React.TouchEvent) => {
+        const touch = evt.touches[0];
+        let time = Date.now();
+        const x = touch.clientX, y = touch.clientY;
+        const direction = x >= lastX ? "right" : "left";
         let pixelsTravelled = Math.sqrt((Math.pow(Math.abs(x - lastX), 2) + Math.pow(Math.abs(y - lastY), 2)));
         let velocity = Math.abs(pixelsTravelled / (time - lastTime));
         updateMouse({
@@ -83,6 +109,7 @@ const HomeHeader: React.FC = () => {
         <>
             <header
                 onMouseMove={onMouseMove}
+                onTouchMove={onTouchMove}
             >
                 <div>
                     <H1 style={{
