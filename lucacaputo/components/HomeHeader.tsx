@@ -46,11 +46,9 @@ const HomeHeader: React.FC = () => {
     const [{ lastX, lastY, lastTime }, updateMouse] = useState({
         lastX: 0,
         lastY: 0,
-        lastTime: Date.now(),
+        lastTime: 0,
     });
-    // let resetTimeout;
     const onMouseMove = (evt: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        // clearTimeout(resetTimeout);
         let direction;
         let time = Date.now();
         const [x, y] = [evt.clientX, evt.clientY];
@@ -74,13 +72,6 @@ const HomeHeader: React.FC = () => {
             frequency: direction === "left" ? velocity/100 : -velocity/100,
             amplitude: velocity * 10,
         });
-        // resetTimeout = setTimeout(() => {
-        //     update({
-        //         length: 0.005,
-        //         frequency: 0.002,
-        //         amplitude: 50,
-        //     });
-        // }, 500);
     }
     return (
         <>
@@ -103,7 +94,8 @@ const HomeHeader: React.FC = () => {
                         Welcome to my website!
                     </H2>
                 </div>
-                <HomeCanvas color="#7A5279" />
+                <HomeCanvas color="rgba(198,188,255,0.5)" offset={0} z={-1} />
+                <HomeCanvas color="aqua" offset={30} z={-2} />
             </header>
             <style jsx>{`
                 header {

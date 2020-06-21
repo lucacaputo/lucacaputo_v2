@@ -3,16 +3,17 @@ import { CanvasContext } from "../contextes/CanvasContext";
 
 interface HomeCanvasProps {
     color: string;
+    offset: number;
+    z: number;
 }
 
-const HomeCanvas: React.FC<HomeCanvasProps> = ({ color }) => {
-    const context = useContext(CanvasContext);
-    const { config } = context;
+const HomeCanvas: React.FC<HomeCanvasProps> = ({ color, offset, z }) => {
+    const { config } = useContext(CanvasContext);
     const ref = useRef<null | HTMLCanvasElement>(null);
     useEffect(() => {
         const cnv = ref.current;
         const ctx = cnv.getContext("2d");
-        cnv.width = window.innerWidth;
+        cnv.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         cnv.height = cnv.parentElement.clientHeight || cnv.parentElement.offsetHeight;
         const [h, w] = [cnv.height, cnv.width];
         let increment = config.frequency.getValue();
@@ -23,7 +24,7 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ color }) => {
             ctx.moveTo(0, h-50);
             for (let i = 0; i < w; i++) {
                 let p = config.amplitude.interpolate(v => v);
-                ctx.lineTo(i, h-150 + Math.sin((i * config.length.getValue()) + increment) * p.getValue());
+                ctx.lineTo(i, h-150 + Math.sin((i * config.length.getValue()) + increment + offset) * p.getValue());
                 ctx.lineTo(i, -(h-150));
             }
             ctx.strokeStyle = color;
@@ -31,6 +32,14 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ color }) => {
             increment += config.frequency.getValue();
         }
         animate();
+        const resize = () => {
+            cnv.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            cnv.height = cnv.parentElement.clientHeight;
+        }
+        window.addEventListener("resize", resize);
+        return () => {
+            window.removeEventListener("resize", resize);
+        }
     }, [ref, config])
     return (
         <>
@@ -39,7 +48,7 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ color }) => {
                 {`
                     canvas {
                         position: absolute;
-                        z-index: -1;
+                        z-index: ${z};
                     }
                 `}
             </style>
