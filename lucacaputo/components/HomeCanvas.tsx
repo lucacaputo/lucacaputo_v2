@@ -13,12 +13,12 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ color, offset, z }) => {
     useEffect(() => {
         const cnv = ref.current;
         const ctx = cnv.getContext("2d");
-        cnv.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        cnv.height = cnv.parentElement.clientHeight || cnv.parentElement.offsetHeight;
-        const [h, w] = [cnv.height, cnv.width];
         let increment = config.frequency.getValue();
         const animate = () => {
             requestAnimationFrame(animate);
+            cnv.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            cnv.height = cnv.parentElement.clientHeight || cnv.parentElement.offsetHeight;
+            const [h, w] = [cnv.height, cnv.width];
             ctx.clearRect(0,0,w,h);
             ctx.beginPath();
             ctx.moveTo(0, h-50);
