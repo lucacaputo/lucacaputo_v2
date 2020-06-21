@@ -11,16 +11,18 @@ const H1 = styled(animated.h1)`
     letter-spacing: 1.5px;
     margin-block-start: 0;
     margin-block-end: 0;
-    color: #141414;
+    color: #eee;
 `;
 const H2 = styled(animated.h2)`
     font-size: 45px;
     font-weight: 400;
-    color: #141414;
+    color: #eee;
     text-align: center;
     margin-block-start: 0;
     margin-block-end: 0;
 `;
+const MAX_AMP = 50;
+const MAX_SPEED = 0.03;
 const HomeHeader: React.FC = () => {
     const { config, update } = useContext(CanvasContext);
     const [h1, h2] = [useRef(null), useRef(null)];
@@ -42,7 +44,7 @@ const HomeHeader: React.FC = () => {
         },
         ref: h2,
     });
-    useChain([h1, h2], [0, 0.15]);
+    useChain([h1, h2], [0, 0.5]);
     const [{ lastX, lastY, lastTime }, updateMouse] = useState({
         lastX: 0,
         lastY: 0,
@@ -55,7 +57,7 @@ const HomeHeader: React.FC = () => {
         if (x >= lastX) direction = "right";
         else direction = "left";
         let pixelsTravelled = Math.sqrt((Math.pow(Math.abs(x - lastX), 2) + Math.pow(Math.abs(y - lastY), 2)));
-        let velocity = pixelsTravelled / (time - lastTime);
+        let velocity = Math.abs(pixelsTravelled / (time - lastTime));
         updateMouse({
             lastX: x,
             lastY: y,
@@ -69,8 +71,12 @@ const HomeHeader: React.FC = () => {
         }
         update({
             ...nums,
-            frequency: direction === "left" ? velocity/100 : -velocity/100,
-            amplitude: velocity * 10,
+            frequency: direction === "left" 
+                ? velocity/100 > MAX_SPEED 
+                    ? MAX_SPEED : velocity/100 + Math.random()/100
+                : velocity/100 > MAX_SPEED
+                    ? -MAX_SPEED : -velocity/100 - Math.random()/100,
+            amplitude: velocity * 10 <= MAX_AMP ? velocity*10 : MAX_AMP,
         });
     }
     return (
@@ -94,8 +100,8 @@ const HomeHeader: React.FC = () => {
                         Welcome to my website!
                     </H2>
                 </div>
-                <HomeCanvas color="rgba(198,188,255,0.5)" offset={0} z={-1} />
-                <HomeCanvas color="aqua" offset={30} z={-2} />
+                <HomeCanvas color="#571845" offset={0} z={-1} />
+                <HomeCanvas color="#C70039" offset={30} z={-2} />
             </header>
             <style jsx>{`
                 header {
