@@ -26,8 +26,9 @@ const Navbar: React.FC<NavProps> = ({ links }) => {
         tr: 0,
         op: 1,
     });
-    const [{ top }, set] = useSpring(() => ({
+    const [{ top, back }, set] = useSpring(() => ({
         top: 45,
+        back: 0,
         config: config.wobbly,
     }));
     useEffect(() => {
@@ -35,10 +36,12 @@ const Navbar: React.FC<NavProps> = ({ links }) => {
             if (window.scrollY >= SCROLL_THRESHOLD) {
                 set({
                     top: 0,
+                    back: .8,
                 })
             } else {
                 set({
                     top: 45,
+                    back: 0,
                 })
             }
         }
@@ -62,6 +65,7 @@ const Navbar: React.FC<NavProps> = ({ links }) => {
             style={{
                 opacity: op,
                 transform: tr.interpolate(v => `translate3d(0px, ${v}px, 0px)`),
+                backgroundColor: back.interpolate(v => `rgba(0,0,0,${v})`),
                 top: top.interpolate(v => `${v}vh`),
             }}
         >

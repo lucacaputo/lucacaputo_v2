@@ -48,7 +48,7 @@ const HomeHeader: React.FC = () => {
         from: {
             tr: 0,
         },
-        tr: -55,
+        tr: -60,
         ref: div,
     })
     useChain([h1, h2, div], [0, 0.5, 1]);

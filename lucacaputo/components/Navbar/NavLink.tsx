@@ -51,7 +51,7 @@ const NavLink: React.FC<AnimatedLinkProps> = ({ text, to, style }) => {
                         width="500"
                         height="500"
                         stroke="#fff"
-                        strokeWidth={10}
+                        strokeWidth={15}
                         fill="transparent"
                         strokeDasharray={2000}
                         strokeDashoffset={x.interpolate(v => v)}
