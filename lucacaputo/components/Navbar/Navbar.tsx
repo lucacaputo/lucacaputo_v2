@@ -7,13 +7,9 @@ const Nav = styled(animated.nav)`
     position: fixed;
     width: 100%;
     padding: .75rem 1rem;
-    background-color: rgba(0,0,0,0.7);
     left: 0;
     z-index: 10;
-    display: flex;
     width: 100%;
-    justify-content: space-between;
-    align-items: center;
 `;
 
 interface NavProps {
@@ -59,7 +55,7 @@ const Navbar: React.FC<NavProps> = ({ links }) => {
         },
         opacity: 1,
         tr: 0,
-        delay: 2000,
+        delay: 1500,
     })
     return (
         <Nav
@@ -69,14 +65,29 @@ const Navbar: React.FC<NavProps> = ({ links }) => {
                 top: top.interpolate(v => `${v}vh`),
             }}
         >
-            {
-                trail.map((props, idx) => (
-                    <NavLink style={{
-                        opacity: props.opacity,
-                        transform: props.tr.interpolate(v => `translate3d(0px, ${v}px, 0px)`),
-                    }} to={links[idx].to} text={links[idx].text} key={links[idx].text}  />
-                ))
-            }
+            <div className="navLinkContainer">
+                {
+                    trail.map((props, idx) => (
+                        <NavLink style={{
+                            opacity: props.opacity,
+                            transform: props.tr.interpolate(v => `translate3d(0px, ${v}px, 0px)`),
+                        }} to={links[idx].to} text={links[idx].text} key={links[idx].text}  />
+                    ))
+                }
+            </div>
+            <style jsx>
+                {`
+                    .navLinkContainer {
+                        display: flex;
+                        max-width: 1200px;
+                        flex-wrap: wrap;
+                        margin: auto;
+                        justify-content: space-between;
+                        align-items: center;
+                        position: relative;
+                    }
+                `}
+            </style>
         </Nav>
     );
 }

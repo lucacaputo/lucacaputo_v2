@@ -8,9 +8,9 @@ const Home = () => {
         <>
             <Navbar links={[
                 { text: "home", to: "" },
-                { text: "home", to: "" },
-                { text: "home", to: "" },
-                { text: "home", to: "" },
+                { text: "about", to: "" },
+                { text: "projects", to: "" },
+                { text: "contacts", to: "" },
             ]} />
             <CanvasContext>
                 <HomeHeader />

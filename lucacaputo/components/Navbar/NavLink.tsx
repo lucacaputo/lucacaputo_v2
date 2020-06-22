@@ -28,9 +28,7 @@ const NavLink: React.FC<AnimatedLinkProps> = ({ text, to, style }) => {
     return (
         <>
             <AnLink 
-                style={{
-                    ...style,
-                }}
+                style={style}
                 onMouseEnter={() => {
                     set({
                         x: 0,
@@ -60,7 +58,7 @@ const NavLink: React.FC<AnimatedLinkProps> = ({ text, to, style }) => {
                     />
                 </svg>
                 <Link href={to}>
-                    <a href={to}>{text}</a>
+                    <a>{text}</a>
                 </Link>
             </AnLink>
             <style jsx>
@@ -69,6 +67,14 @@ const NavLink: React.FC<AnimatedLinkProps> = ({ text, to, style }) => {
                         position: absolute;
                         top: 0;
                         left: 0;
+                        z-index: -1;
+                    }
+                    a {
+                        color: #fff;
+                        text-transform: uppercase;
+                        fon-size: 30px;
+                        font-weight: 300;
+                        text-decoration: none;
                     }
                 `}
             </style>

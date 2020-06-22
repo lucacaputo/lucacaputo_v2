@@ -25,7 +25,7 @@ const MAX_AMP = 50;
 const MAX_SPEED = 0.03;
 const HomeHeader: React.FC = () => {
     const { config, update } = useContext(CanvasContext);
-    const [h1, h2] = [useRef(null), useRef(null)];
+    const [h1, h2, div] = [useRef(null), useRef(null), useRef(null)];
     const { morphs, opacity } = useSpring({
         morphs: [0, 1],
         opacity: 1,
@@ -44,7 +44,14 @@ const HomeHeader: React.FC = () => {
         },
         ref: h2,
     });
-    useChain([h1, h2], [0, 0.5]);
+    const { tr } = useSpring({
+        from: {
+            tr: 0,
+        },
+        tr: -55,
+        ref: div,
+    })
+    useChain([h1, h2, div], [0, 0.5, 1]);
     const [{ lastX, lastY, lastTime }, updateMouse] = useState({
         lastX: 0,
         lastY: 0,
@@ -111,7 +118,11 @@ const HomeHeader: React.FC = () => {
                 onMouseMove={onMouseMove}
                 onTouchMove={onTouchMove}
             >
-                <div>
+                <animated.div
+                    style={{
+                        transform: tr.interpolate(v => `translate3d(0, ${v}%, 0)`),
+                    }}
+                >
                     <H1 style={{
                         // @ts-ignore
                         transform: morphs.interpolate((trans, scale) => `translate3d(0px, ${trans}px, 0px) scale(${scale})`),
@@ -126,7 +137,7 @@ const HomeHeader: React.FC = () => {
                     }}>
                         Welcome to my website!
                     </H2>
-                </div>
+                </animated.div>
                 <HomeCanvas color="rgba(32, 64, 81, 0.8)" offset={0} z={-1} />
                 <HomeCanvas color="#e7dfd5" offset={30} z={-2} />
             </header>
