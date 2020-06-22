@@ -16,7 +16,7 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ color, offset, z }) => {
         let increment = config.frequency.getValue();
         const animate = () => {
             requestAnimationFrame(animate);
-            cnv.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            cnv.width = document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth;
             cnv.height = cnv.parentElement.clientHeight || cnv.parentElement.offsetHeight;
             const [h, w] = [cnv.height, cnv.width];
             ctx.clearRect(0,0,w,h);
@@ -38,7 +38,7 @@ const HomeCanvas: React.FC<HomeCanvasProps> = ({ color, offset, z }) => {
         }
         animate();
         const resize = () => {
-            cnv.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            cnv.width = document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth;
             cnv.height = cnv.parentElement.clientHeight;
         }
         window.addEventListener("resize", resize);

@@ -5,11 +5,10 @@ import { useEffect } from "react";
 
 const Nav = styled(animated.nav)`
     position: fixed;
-    width: 100%;
+    width: 100vw;
     padding: .75rem 1rem;
     left: 0;
     z-index: 10;
-    width: 100%;
 `;
 
 interface NavProps {

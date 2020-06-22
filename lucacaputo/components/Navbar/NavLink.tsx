@@ -21,7 +21,6 @@ const AnLink = styled(animated.div)`
 `;
 
 const NavLink: React.FC<AnimatedLinkProps> = ({ text, to, style }) => {
-    console.log(style);
     const [{ x }, set] = useSpring(() => ({
         x: 2000,
     }))

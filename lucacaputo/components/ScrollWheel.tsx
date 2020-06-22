@@ -44,9 +44,9 @@ const ScrollWheel: React.FC = () => {
             </svg>
             <style jsx>{`
                 svg {
-                    height: 10h;
+                    height: 10vh;
                     left: 50%;
-                    transform: translateX(-50%):
+                    transform: translateX(-50%);
                     cursor: pointer;
                     z-index: 2;
                 }
