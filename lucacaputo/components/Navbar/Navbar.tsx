@@ -2,6 +2,7 @@ import NavLink, { LinkProps } from "./NavLink";
 import styled from "styled-components";
 import { animated, useSpring, useTrail, useChain, config } from "react-spring";
 import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/router";
 
 const Nav = styled(animated.nav)`
     position: fixed;
@@ -17,6 +18,7 @@ interface NavProps {
 const SCROLL_THRESHOLD = 100;
 
 const Navbar: React.FC<NavProps> = ({ links }) => {
+    const router = useRouter();
     const topRef = useRef(null), backRef = useRef(null);
     const [ scrollPast, setScrollPast ] = useState<boolean | null>(null);
     const { tr, op } = useSpring({

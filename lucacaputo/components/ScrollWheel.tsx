@@ -1,19 +1,4 @@
-import { animated, useSpring, config } from "react-spring";
-
 const ScrollWheel: React.FC = () => {
-    // @ts-ignore
-    const { transform } = useSpring({
-        from: {
-            transform: 0,
-        },
-        to: async next => {
-            while(1) {
-                await next({ transform: 100 });
-                await next({ transform: 0 });
-            }
-        },
-        config: config.gentle,
-    })
     return (
         <>
             <svg
@@ -32,14 +17,11 @@ const ScrollWheel: React.FC = () => {
                     width="100" height="200" 
                     rx="50"
                 />
-                <animated.circle
+                <circle
                     cx="100"
                     cy="50"
                     r="40"
                     fill="#141414"
-                    style={{
-                        transform: transform.interpolate(v => `translateY(${v}px)`)
-                    }}
                 />
             </svg>
             <style jsx>{`
@@ -49,6 +31,24 @@ const ScrollWheel: React.FC = () => {
                     transform: translateX(-50%);
                     cursor: pointer;
                     z-index: 2;
+                }
+                circle {
+                    animation-name: upDown;
+                    animation-duration: 2s;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: ease;
+                    will-change: transform;
+                }
+                @keyframes upDown {
+                    0% {
+                        transform: translateY(0);
+                    }
+                    50% {
+                        transform: translateY(100px);
+                    }
+                    100% {
+                        transform: translateY(0);
+                    }
                 }
             `}</style>
         </>
