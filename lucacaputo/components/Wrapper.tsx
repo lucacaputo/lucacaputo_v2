@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Navbar from "../components/Navbar/Navbar";
 import Head from "next/head";
 
 const Wrapper: React.FC = ({ children }) => {
@@ -10,6 +10,12 @@ const Wrapper: React.FC = ({ children }) => {
                 <meta name="charset" content="UTF-8" />
                 <title>Luca Caputo</title>
             </Head>
+            <Navbar links={[
+                { text: "home", to: "/" },
+                { text: "about", to: "/about" },
+                { text: "projects", to: "#" },
+                { text: "contacts", to: "#" },
+            ]} />
             { children }
             <style jsx>{`
                 .AppWrapper {

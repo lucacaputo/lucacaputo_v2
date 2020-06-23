@@ -6,12 +6,6 @@ import Navbar from "../components/Navbar/Navbar";
 const Home = () => {
     return (
         <>
-            <Navbar links={[
-                { text: "home", to: "/" },
-                { text: "about", to: "#" },
-                { text: "projects", to: "#" },
-                { text: "contacts", to: "#" },
-            ]} />
             <CanvasContext>
                 <HomeHeader />
                 <ScrollWheel />
