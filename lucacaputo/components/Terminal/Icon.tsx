@@ -4,16 +4,17 @@ import UnderscoreSymbol from "./UnderscoreSymbol";
 interface IconProps {
     bg: string;
     type: "close" | "minimize" | "maximize";
+    onClick?: (e?: React.MouseEvent) => void;
 }
 
-const Icon: React.FC<IconProps> = ({ bg, type }) => {
+const Icon: React.FC<IconProps> = ({ bg, type, onClick }) => {
     const symbol = type === "close"
         ? <XSymbol />
         : type === "minimize"
             ? <UnderscoreSymbol />
             : <span>M</span>;
     return (
-        <div>
+        <div onClick={onClick!}>
             { symbol }
             <style jsx>
                 {`
