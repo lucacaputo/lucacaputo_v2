@@ -2,6 +2,7 @@ import { animated, useTransition, useChain } from "react-spring";
 import styled from "styled-components";
 import { useState, useRef } from "react";
 import Icon from "./Icon";
+import { useRouter } from "next/router";
 
 const AnimatedContainer = styled(animated.div)`
     height: 400px;
@@ -35,9 +36,19 @@ const AVAILABLE_COMMANDS = [
     { name: "help", exp: "displays available commands" },
     { name: "clear", exp: "clears the terminal" },
     { name: "hist", exp: "shows commands history" },
+    { name: "goto <page>", exp: "navigates to /<page>" },
+    { name: "contact -field", exp: "shows the contact. (name, email, tel)" },
 ]
 
+const AVAILABLE_PAGES = [
+    "about",
+    "home",
+    "projects",
+    "contacts",
+];
+
 const Terminal = () => {
+    const router = useRouter();
     const [isOpen, setOpen] = useState(true);
     const [content, setContent] = useState([]);
     const [commands, setCommands] = useState<Array<string>>([]);
@@ -52,8 +63,8 @@ const Terminal = () => {
         leave: { transform: "translateY(100px)", opacity: 0 }
     });
 
-    const parseCommand = (command: string) => {
-        switch(command.toLowerCase()) {
+    const parseCommand = (command: Array<string>) => {
+        switch(command[0].toLowerCase()) {
             case "help":
                 setContent([
                     ...content,
@@ -71,6 +82,61 @@ const Terminal = () => {
                     commands.map((el, i) => <Cons key={`hist-${Date.now()}-${i}`}>{el}</Cons>)
                 ]);
                 break;
+            case "goto":
+                const page = command[1];
+                if (!page) {
+                    setContent([
+                        ...content,
+                        <Cons key={`missing-${Date.now()}`}>page parameter missing</Cons>
+                    ]);
+                    break;
+                } else {
+                    if (AVAILABLE_PAGES.indexOf(page) >= 0) {
+                        router.push(`/${page}`);
+                    } else {
+                        setContent([
+                            ...content,
+                            <Cons key={`wrong-${Date.now()}`}>page not existing</Cons>
+                        ]);
+                    }
+                    break;
+                }
+            case "contact":
+                const field = command[1]?.substring(1);
+                if (!field) {
+                    setContent([
+                        ...content,
+                        <Cons key={`missing-${Date.now()}`}>field parameter missing</Cons>
+                    ]);
+                    break;
+                } else {
+                    switch(field) {
+                        case "name":
+                            setContent([
+                                ...content,
+                                <Cons key={`contact-${Date.now()}`}>Hi, I'm Luca :)</Cons>,
+                            ]);
+                            break;
+                        case "email":
+                            setContent([
+                                ...content,
+                                <Cons key={`contact-${Date.now()}`}>caputo.luca@outlook.com</Cons>,
+                            ]);
+                            break;
+                        case "tel":
+                            setContent([
+                                ...content,
+                                <Cons key={`contact-${Date.now()}`}>+39 329 1256889</Cons>,
+                            ]);
+                            break;
+                        default:
+                            setContent([
+                                ...content,
+                                <Cons key={`wrong-cont-${Date.now()}`}>Field not available</Cons>,
+                            ]);
+                    }
+                    break;
+                }
             default:
                 setContent([
                     ...content,
@@ -79,14 +145,14 @@ const Terminal = () => {
         }
         setCommands([
             ...commands,
-            command.toLowerCase(),
+            command[0].toLowerCase(),
         ])
     }
 
     const onKeyDown = (evt: React.KeyboardEvent) => {
         if (evt.keyCode === 13) {
             evt.preventDefault();
-            parseCommand(area);
+            parseCommand(area.split(/\s+/gm));
             setArea("");
         }
     } 
