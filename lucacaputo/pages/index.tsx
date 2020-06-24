@@ -1,7 +1,7 @@
 import HomeHeader from "../components/HomeHeader";
 import CanvasContext from "../contextes/CanvasContext";
 import ScrollWheel from "../components/ScrollWheel";
-import Navbar from "../components/Navbar/Navbar";
+import Terminal from "../components/Terminal/Terminal";
 
 const Home = () => {
     return (
@@ -10,7 +10,9 @@ const Home = () => {
                 <HomeHeader />
                 <ScrollWheel />
             </CanvasContext>
-            <div style={{height: 1000}}></div>
+            <div style={{height: 1000}}>
+                <Terminal />
+            </div>
         </>
     );
 }
