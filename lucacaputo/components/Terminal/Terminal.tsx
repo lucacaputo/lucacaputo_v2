@@ -174,6 +174,7 @@ const Terminal = () => {
                 style={{
                     height,
                     position: "relative",
+                    margin: "20px 0",
                 }}
             >
                 {

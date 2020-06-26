@@ -1,4 +1,8 @@
-const ScrollWheel: React.FC = () => {
+interface ScrollWheelProps {
+    onClick?: () => void;
+}
+
+const ScrollWheel: React.FC<ScrollWheelProps> = ({ onClick }) => {
     return (
         <>
             <svg
@@ -8,6 +12,7 @@ const ScrollWheel: React.FC = () => {
                 width="50px"
                 height="100px"
                 style={{position: "relative"}}
+                onClick={onClick}
             >
                 <rect 
                     x="50" y="0" 

@@ -13,3 +13,10 @@ body {
     font-family: 'Open Sans';
     box-sizing: border-box;
 }
+.mainContainer {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 1rem;
+    position: relative;
+    height: auto;
+}
