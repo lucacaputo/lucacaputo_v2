@@ -1,4 +1,4 @@
-import { animated, useTransition, useChain } from "react-spring";
+import { animated, useTransition, useSpring } from "react-spring";
 import styled from "styled-components";
 import { useState, useRef } from "react";
 import Icon from "./Icon";
@@ -63,6 +63,13 @@ const Terminal = () => {
         leave: { transform: "translateY(100px)", opacity: 0 }
     });
 
+    const { height } = useSpring({
+        from: {
+            height: 400,
+        },
+        height: isOpen ? 400 : 53,
+    });
+
     const parseCommand = (command: Array<string>) => {
         switch(command[0].toLowerCase()) {
             case "help":
@@ -102,7 +109,7 @@ const Terminal = () => {
                     break;
                 }
             case "contact":
-                const field = command[1]?.substring(1);
+                const field = command[1]?.substring(1).toLowerCase();
                 if (!field) {
                     setContent([
                         ...content,
@@ -159,25 +166,32 @@ const Terminal = () => {
 
     return (
         <>
-            {
-                transition.map(({ item, props, key }) => item ? 
-                    <AnimatedContainer style={props} key={key} onClick={() => textarea.current.focus()}>
-                        <div className="iconBar">
-                            <Icon onClick={close} type="close" bg="#FF6158" />
-                            <Icon type="minimize" bg="#FFBD2D" />
-                        </div>
-                        <div className="help">Type 'help' for the available commands.</div>
-                        <div className="fader"></div>
-                        <div className="terminal_content">
-                            { content }
-                        </div>
-                        <textarea onKeyDown={onKeyDown} value={area} onChange={e => setArea(e.target.value)} name="commands" ref={textarea}></textarea>
-                    </AnimatedContainer> 
-                    : <AnimatedIcon style={props} key={key} onClick={open}>
-                        <img src="/terminal.svg" alt="terminal macos image" className="terminalIcon" />
-                    </AnimatedIcon>
-                )
-            }
+            <animated.div
+                style={{
+                    height,
+                    position: "relative",
+                }}
+            >
+                {
+                    transition.map(({ item, props, key }) => item ? 
+                        <AnimatedContainer style={props} key={key} onClick={() => textarea.current.focus()}>
+                            <div className="iconBar">
+                                <Icon onClick={close} type="close" bg="#FF6158" />
+                                <Icon type="minimize" bg="#FFBD2D" />
+                            </div>
+                            <div className="help">Type 'help' for the available commands.</div>
+                            <div className="fader"></div>
+                            <div className="terminal_content">
+                                { content }
+                            </div>
+                            <textarea onKeyDown={onKeyDown} value={area} onChange={e => setArea(e.target.value)} name="commands" ref={textarea}></textarea>
+                        </AnimatedContainer> 
+                        : <AnimatedIcon style={props} key={key} onClick={open}>
+                            <img src="/terminal.svg" alt="terminal macos image" className="terminalIcon" />
+                        </AnimatedIcon>
+                    )
+                }
+            </animated.div>
             <style jsx>
                 {`
                     .terminalIcon {
