@@ -54,7 +54,11 @@ const Terminal = () => {
     const [commands, setCommands] = useState<Array<string>>([]);
     const [area, setArea] = useState("");
     const textarea = useRef(null);
-    const close = () => setOpen(false);
+    const close = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setOpen(false);
+    }
     const open = () => setOpen(true);
 
     const transition = useTransition(isOpen, null, {
