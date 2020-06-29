@@ -28,7 +28,7 @@ const getIntervalledLetters = async (letters: Array<string>, cb: (lett: string) 
 }
 
 const TypeWriter: React.FC<TypeWriterProps> = ({ wordSequence, beforeSentence, afterSentence, textColor, bg, fontSize, timing=300 }) => {
-    const splittedWords = wordSequence.map(el => el.trim().split(""));
+    const splittedWords = wordSequence.map(el => el.trim().replace(/\s+/g, "\u00a0").split(""));
     const [content, setContent] = useState<Array<string>>([]);
     const [index, setIndex] = useState(0);
     useEffect(() => {
