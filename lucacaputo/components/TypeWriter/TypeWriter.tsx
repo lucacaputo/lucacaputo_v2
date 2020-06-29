@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface TypeWriterProps {
     wordSequence: Array<string>;
@@ -13,12 +13,11 @@ interface TypeWriterProps {
 const getIntervalledLetters = async (letters: Array<string>, cb: (lett: string) => void, time: number) => {
     return await new Promise((res, rej) => {
         let [first, ...rest] = letters;
+        cb(first);
         if (rest.length === 0) {
-            cb(first);
             setTimeout(res, time*5);
         }
         else {
-            cb(first);
             setTimeout(() => {
                 res(getIntervalledLetters(rest, cb, time));
             }, time)
@@ -28,7 +27,7 @@ const getIntervalledLetters = async (letters: Array<string>, cb: (lett: string) 
     .catch(err => console.log(err));
 }
 
-const TypeWrriter: React.FC<TypeWriterProps> = ({ wordSequence, beforeSentence, afterSentence, textColor, bg, fontSize, timing=400 }) => {
+const TypeWriter: React.FC<TypeWriterProps> = ({ wordSequence, beforeSentence, afterSentence, textColor, bg, fontSize, timing=300 }) => {
     const splittedWords = wordSequence.map(el => el.trim().split(""));
     const [content, setContent] = useState<Array<string>>([]);
     const [index, setIndex] = useState(0);
@@ -98,4 +97,4 @@ const TypeWrriter: React.FC<TypeWriterProps> = ({ wordSequence, beforeSentence, 
     );
 }
 
-export default TypeWrriter;
+export default React.memo(TypeWriter);

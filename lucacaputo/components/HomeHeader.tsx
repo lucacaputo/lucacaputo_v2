@@ -138,8 +138,8 @@ const HomeHeader: React.FC = () => {
                         Welcome to my website!
                     </H2>
                 </animated.div>
-                <HomeCanvas color="rgba(32, 64, 81, 0.8)" offset={0} z={-1} />
-                <HomeCanvas color="#e7dfd5" offset={30} z={-2} />
+                <HomeCanvas color="rgba(23, 36, 71, 0.8)" offset={0} z={-1} />
+                <HomeCanvas color="#204068" offset={30} z={-2} />
             </header>
             <style jsx>{`
                 header {
