@@ -19,11 +19,6 @@ const Home = () => {
             </CanvasContext>
             <div className="mainContainer" ref={scrollHere}>
                 <Terminal />
-                <TypeWriter 
-                    wordSequence={["ciao","sono","luca"]}
-                    beforeSentence="una frase di questa lunghezza"
-                    afterSentence="un'altra frase"
-                />
             </div>
         </>
     );

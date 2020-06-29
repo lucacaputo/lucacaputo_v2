@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useRef, useState, useContext } from "react";
 import HomeCanvas from "./HomeCanvas";
 import { CanvasContext } from "../contextes/CanvasContext";
+import TypeWriter from "./TypeWriter/TypeWriter";
 
 const H1 = styled(animated.h1)`
     font-size: 65px;
@@ -12,8 +13,9 @@ const H1 = styled(animated.h1)`
     margin-block-start: 0;
     margin-block-end: 0;
     color: #eee;
+    font-family: "Roboto Mono";
 `;
-const H2 = styled(animated.h2)`
+const D2 = styled(animated.div)`
     font-size: 45px;
     font-weight: 400;
     color: #eee;
@@ -130,13 +132,21 @@ const HomeHeader: React.FC = () => {
                     }}>
                         Hi!
                     </H1>
-                    <H2 style={{
+                    <D2 style={{
                         // @ts-ignore
                         transform: morphs_2.interpolate((trans, scale) => `translate3d(0px, ${trans}px, 0px) scale(${scale})`),
                         opacity: opacity_2,
                     }}>
-                        Welcome to my website!
-                    </H2>
+                        <TypeWriter 
+                            wordSequence={["front end", "back end", "mobile", "awesome"]}
+                            beforeSentence="I'm a"
+                            afterSentence="developer"
+                            fontSize={45}
+                            bg="transparent"
+                            textColor="#eee"
+                            timing={200}
+                        />
+                    </D2>
                 </animated.div>
                 <HomeCanvas color="rgba(23, 36, 71, 0.8)" offset={0} z={-1} />
                 <HomeCanvas color="#204068" offset={30} z={-2} />
