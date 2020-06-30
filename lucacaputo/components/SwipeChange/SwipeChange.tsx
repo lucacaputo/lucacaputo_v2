@@ -1,5 +1,5 @@
 import { animated, useSpring } from "react-spring";
-import { useGesture } from "react-use-gesture";
+import { useGesture, useDrag } from "react-use-gesture";
 import styled from "styled-components";
 import useMeasure from "react-use-measure";
 import { useRef } from "react";
@@ -18,10 +18,13 @@ const SwipeChange: React.FC = () => {
     const ball = useRef<null | HTMLDivElement>(null);
     const [ref, b] = useMeasure();
     const [{ x }, set] = useSpring(() => ({ x: 0 }));
-    const bind = useGesture({
-        onDrag: ({ movement: [mx], memo = x.getValue() }) => {
-            set({ x: clamp(memo + mx, -b.width/2, b.width/2) });
-            return memo;
+    const bind = useDrag(({ offset: [ox] }) => {
+        set({ x: ox });
+    }, {
+        bounds: { left: -b.width/2, right: b.width/2 },
+        domTarget: ball.current,
+        eventOptions: {
+            passive: true,
         }
     })
     return (
