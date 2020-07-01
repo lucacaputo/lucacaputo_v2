@@ -20,7 +20,7 @@ const Home = () => {
             <div className="mainContainer" ref={scrollHere}>
                 <Terminal />
             </div>
-            <div style={{overflow:"hidden"}}>
+            <div style={{overflowX:"hidden"}}>
                 <div className="mainContainer">
                     <SwipeChange />
                 </div>

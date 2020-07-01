@@ -25,13 +25,19 @@ const Reveal = styled(animated.div)`
     z-index: -1;
 `;
 
+const clamp = (num: number, lower: number, upper: number): number => {
+    if (num >= upper) return upper;
+    if (num <= lower) return lower;
+    if (num > lower && num < upper) return num;
+}
+
 const SwipeChange: React.FC = () => {
     const [ref, { width }] = useMeasure({ polyfill: ResizeObserver });
     const [{ x }, set] = useSpring(() => ({ x: 200 }));
-    const bind = useDrag(({ offset: [ox] }) => {
-        return set({ x: ox });
+    const bind = useDrag(({ movement: [mx], memo = x.getValue() }) => {
+        set({ x: clamp(mx + memo, -width/2, width/2) });
+        return memo;
     }, {
-        bounds: { left: -width/2, right: width/2 },
         eventOptions: {
             pointer: true,
             capture: true,
@@ -40,7 +46,7 @@ const SwipeChange: React.FC = () => {
     return (
         <div className="container" ref={ref}>
             <Reveal className="reveal" style={{
-                backgroundPosition: x.interpolate(v => `calc(${width/2-25}px + ${v}px) 50%`)
+                backgroundPosition: x.interpolate(v => `calc(${width/2-1}px + ${v}px) 50%`)
             }}>
                 <h2>
                     I <strong>build</strong> it!
