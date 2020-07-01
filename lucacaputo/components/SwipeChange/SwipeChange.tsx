@@ -1,9 +1,8 @@
 import { animated, useSpring } from "react-spring";
-import { useGesture, useDrag } from "react-use-gesture";
+import { useDrag } from "react-use-gesture";
 import styled from "styled-components";
 import useMeasure from "react-use-measure";
 import { useRef } from "react";
-import clamp from "lodash.clamp";
 
 const SwipeContainer = styled(animated.div)`
     position: absolute;
@@ -16,28 +15,28 @@ const SwipeContainer = styled(animated.div)`
 
 const SwipeChange: React.FC = () => {
     const ball = useRef<null | HTMLDivElement>(null);
-    const [ref, b] = useMeasure();
+    const [ref, { width }] = useMeasure();
     const [{ x }, set] = useSpring(() => ({ x: 0 }));
     const bind = useDrag(({ offset: [ox] }) => {
-        set({ x: ox });
+        return set({ x: ox });
     }, {
-        bounds: { left: -b.width/2, right: b.width/2 },
-        domTarget: ball.current,
+        bounds: { left: -width/2, right: width/2 },
         eventOptions: {
-            passive: true,
+            pointer: true,
         }
     })
     return (
         <div className="container" ref={ref}>
             <div className="reveal"></div>
             <SwipeContainer style={{ width: x.interpolate(v => `calc(50% + ${v}px)`) }}>
-                <div className="dragBall" onClick={e => e.stopPropagation()} ref={ball} {...bind()} />
+                <div className="dragBall" {...bind()} />
             </SwipeContainer>
             <style jsx>
                 {`
                     .container {
                         width: 100%;
                         position: relative;
+                        touch-action: none;
                     }
                     .reveal {
                         position: relative;
