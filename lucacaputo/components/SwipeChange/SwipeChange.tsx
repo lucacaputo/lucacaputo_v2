@@ -2,7 +2,7 @@ import { animated, useSpring } from "react-spring";
 import { useDrag } from "react-use-gesture";
 import styled from "styled-components";
 import useMeasure from "react-use-measure";
-import { useRef } from "react";
+import { ResizeObserver } from "@juggle/resize-observer";
 
 const SwipeContainer = styled(animated.div)`
     position: absolute;
@@ -14,8 +14,7 @@ const SwipeContainer = styled(animated.div)`
 `;
 
 const SwipeChange: React.FC = () => {
-    const ball = useRef<null | HTMLDivElement>(null);
-    const [ref, { width }] = useMeasure();
+    const [ref, { width }] = useMeasure({ polyfill: ResizeObserver });
     const [{ x }, set] = useSpring(() => ({ x: 0 }));
     const bind = useDrag(({ offset: [ox] }) => {
         return set({ x: ox });
@@ -23,6 +22,7 @@ const SwipeChange: React.FC = () => {
         bounds: { left: -width/2, right: width/2 },
         eventOptions: {
             pointer: true,
+            capture: true,
         }
     })
     return (
