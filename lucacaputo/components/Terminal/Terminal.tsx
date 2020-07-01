@@ -13,6 +13,9 @@ const AnimatedContainer = styled(animated.div)`
     border: 1px solid #B7B7B8;
     position: relative;
     overflow: hidden;
+    @media (max-width: 600px) {
+        width: 100%;
+    }
 `;
 
 const AnimatedIcon = styled(animated.div)`

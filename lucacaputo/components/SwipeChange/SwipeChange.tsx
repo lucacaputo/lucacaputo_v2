@@ -36,7 +36,7 @@ const SwipeChange: React.FC = () => {
                     .container {
                         width: 100%;
                         position: relative;
-                        touch-action: none;
+                        touch-action: pan-y;
                     }
                     .reveal {
                         position: relative;
