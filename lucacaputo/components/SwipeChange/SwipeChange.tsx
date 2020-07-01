@@ -78,6 +78,7 @@ const SwipeChange: React.FC = () => {
                         align-items: center;
                         padding: 5px;
                         box-shadow: 2px 0 8px #1b1b2f;
+                        user-select: none;
                     }
                     h2 {
                         color: #1b1b2f;
@@ -87,12 +88,14 @@ const SwipeChange: React.FC = () => {
                         margin: auto;
                         width max-content;
                         font-weight: 300;
+                        user-select: none;
                     }
                     img {
                         width: 80%;
                         height: auto;
                         display: block;
                         pointer-events: none;
+                        user-select: none;
                     }
                 `}
             </style>
