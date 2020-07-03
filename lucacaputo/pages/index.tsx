@@ -4,11 +4,19 @@ import ScrollWheel from "../components/ScrollWheel";
 import Terminal from "../components/Terminal/Terminal";
 import SwipeChange from "../components/SwipeChange/SwipeChange";
 import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);
     return (
-        <>
+        <motion.div 
+            exit={{ opacity: 0, x: 120, }} 
+            initial={{ opacity: 0, x: -120 }} 
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+                duration: .6,
+            }}
+        >
             <CanvasContext>
                 <HomeHeader />
                 <ScrollWheel onClick={() => {
@@ -25,7 +33,7 @@ const Home = () => {
                     <SwipeChange />
                 </div>
             </div>
-        </>
+        </motion.div>
     );
 }
 

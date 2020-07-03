@@ -1,10 +1,13 @@
 import Wrapper from "../components/Wrapper";
 import "../css/styles.css";
+import { AnimatePresence } from "framer-motion";
 
-const App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps, router }) => {
     return (
         <Wrapper>
-            <Component {...pageProps} />
+            <AnimatePresence exitBeforeEnter>
+                <Component {...pageProps} key={router.route} />
+            </AnimatePresence>
         </Wrapper>
     );
 }
