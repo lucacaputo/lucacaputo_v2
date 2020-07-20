@@ -2,6 +2,7 @@ import HexagonParticle from "./HexagonParticle";
 import CircleParticle from "./CircleParticle";
 import CubixParticle from "./CubixParticle";
 import { useRef, useEffect } from "react";
+import { ParticleBluePrint } from "./Particle";
 
 const ParticleCanvas: React.FC = () => {
     const ref = useRef<null | HTMLCanvasElement>(null);
@@ -10,7 +11,7 @@ const ParticleCanvas: React.FC = () => {
         const ctx = cnv.getContext("2d");
         cnv.height = cnv.parentElement.clientHeight || cnv.parentElement.offsetHeight;
         cnv.width = cnv.parentElement.clientWidth || cnv.parentElement.offsetWidth;
-        const particles = [];
+        const particles: Array<ParticleBluePrint> = [];
         for (let i = 0; i < 102; i++) {
             if (i < 34) {
                 particles.push(new HexagonParticle(
