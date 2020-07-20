@@ -5,6 +5,7 @@ import Terminal from "../components/Terminal/Terminal";
 import SwipeChange from "../components/SwipeChange/SwipeChange";
 import { useRef } from "react";
 import { motion } from "framer-motion";
+import ParticlesCanvas from "../components/ParticlesCanvas/ParticlesCanvas";
 
 const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);
@@ -32,6 +33,9 @@ const Home = () => {
                 <div className="mainContainer">
                     <SwipeChange />
                 </div>
+            </div>
+            <div style={{height:"100vh", marginTop: 40}}>
+                <ParticlesCanvas />
             </div>
         </motion.div>
     );
