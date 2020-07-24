@@ -6,7 +6,6 @@ import SwipeChange from "../components/SwipeChange/SwipeChange";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import ParticlesCanvas from "../components/ParticlesCanvas/ParticlesCanvas";
-import ParticlesCanvas2 from "../components/ParticlesV2/ParticlesCanvas2";
 
 const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);
@@ -38,7 +37,6 @@ const Home = () => {
             <div style={{height:"100vh", marginTop: 40}}>
                 <ParticlesCanvas />
             </div>
-            <ParticlesCanvas2 />
         </motion.div>
     );
 }
