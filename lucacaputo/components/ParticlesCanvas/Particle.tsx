@@ -5,13 +5,15 @@ export abstract class ParticleBluePrint {
     dirY: number;
     size: number;
     color: string;
-    constructor(x: number, y: number, dirX: number, dirY: number, size: number, color: string) {
+    id: number;
+    constructor(x: number, y: number, dirX: number, dirY: number, size: number, color: string, id: number) {
         this.x = x;
         this.y = y;
         this.dirX = dirX;
         this.dirY = dirY;
         this.size = size;
         this.color = color;
+        this.id = id;
     }
     log() {
         console.log(this);

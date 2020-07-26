@@ -7,9 +7,10 @@ class CircleParticle extends ParticleBluePrint {
         dirX: number,
         dirY: number,
         size: number,
-        color: string
+        color: string,
+        id: number,
     ) {
-        super(x,y,dirX,dirY,size,color);
+        super(x,y,dirX,dirY,size,color,id);
     }
     draw(ctx: CanvasRenderingContext2D) {
         ctx.moveTo(0,0);
@@ -17,8 +18,8 @@ class CircleParticle extends ParticleBluePrint {
         ctx.arc(this.x + this.size/2 + this.dirX, this.y + this.size/2 + this.dirY, this.size, 0, Math.PI * 2);
         ctx.closePath();
         ctx.lineWidth = 1;
-        ctx.strokeStyle = this.color;
-        ctx.stroke();
+        ctx.fillStyle = this.color;
+        ctx.fill();
     }
 }
 

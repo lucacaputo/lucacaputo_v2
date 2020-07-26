@@ -35,7 +35,7 @@ const Home = () => {
                 </div>
             </div>
             <div style={{height:"100vh", marginTop: 40}}>
-                <ParticlesCanvas />
+                <ParticlesCanvas partNum={100} proximity_threshold={50} />
             </div>
         </motion.div>
     );

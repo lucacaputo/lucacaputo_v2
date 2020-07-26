@@ -7,18 +7,19 @@ class CubixParticle extends ParticleBluePrint {
         dirX: number, 
         dirY: number, 
         size: number, 
-        color: string
+        color: string,
+        id: number,
     ) {
-        super(x,y,dirX,dirY,size,color);
+        super(x,y,dirX,dirY,size,color,id);
     }
     draw(ctx: CanvasRenderingContext2D) {
         ctx.moveTo(0, 0);
         ctx.beginPath();
-        ctx.strokeStyle = this.color;
+        ctx.fillStyle = this.color;
         ctx.lineWidth = 1;
         ctx.rect(this.x, this.y, this.size*2, this.size*2);
         ctx.closePath();
-        ctx.stroke();
+        ctx.fill();
     }
 }
 
