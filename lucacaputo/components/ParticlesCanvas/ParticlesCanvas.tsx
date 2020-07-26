@@ -64,7 +64,7 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ proximity_threshold, pa
                 if (el.length >= 2) {
                     ctx.beginPath();
                     ctx.strokeStyle = "#000";
-                    ctx.lineWidth = .25;
+                    ctx.lineWidth = .1;
                     el.forEach((part, partIdx) => {
                         ctx.moveTo(part.x + part.size/2, part.y + part.size/2);
                         for (let p = partIdx + 1; p < el.length; p++) {
