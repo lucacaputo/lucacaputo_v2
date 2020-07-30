@@ -3,6 +3,7 @@ import CircleParticle from "./CircleParticle";
 import CubixParticle from "./CubixParticle";
 import { useRef, useEffect } from "react";
 import { ParticleBluePrint } from "./Particle";
+import { Tuple } from "react-use-gesture/dist/types";
 
 interface ParticleCanvasProps {
     proximity_threshold: number;
@@ -100,7 +101,7 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ proximity_threshold, pa
                 if (el.length >= 2) {
                     ctx.beginPath();
                     ctx.strokeStyle = "#000";
-                    ctx.lineWidth = .1;
+                    ctx.lineWidth = .3;
                     el.forEach((part, partIdx) => {
                         ctx.moveTo(part.x + part.size/2, part.y + part.size/2);
                         for (let p = partIdx + 1; p < el.length; p++) {
@@ -115,14 +116,18 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ proximity_threshold, pa
                 ctx.beginPath();
                 ctx.strokeStyle = "red";
                 ctx.lineWidth = .1;
+                let connections: Array<Tuple<number>> = [];
                 mouseProximity.forEach(el => {
                     ctx.moveTo(el.x + el.size/2, el.y + el.size/2);
                     mouseProximity.forEach(el2 => {
-                        ctx.lineTo(el2.x + el2.size/2, el2.y + el2.size/2);
-                        ctx.closePath();
-                        ctx.stroke();
+                        if (el.id !== el2.id && !connections.find(conn => conn.includes(el.id) && conn.includes(el2.id))) {
+                            ctx.lineTo(el2.x + el2.size/2, el2.y + el2.size/2);
+                            ctx.closePath();
+                            ctx.stroke();
+                            connections.push([el.id, el2.id]);
+                        }
                     })
-                })
+                });
             }
             requestAnimationFrame(animate);
         }
