@@ -36,8 +36,12 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ proximity_threshold, pa
     useEffect(() => {
         const cnv = ref.current;
         const ctx = cnv.getContext("2d");
-        cnv.height = cnv.parentElement.clientHeight || cnv.parentElement.offsetHeight;
-        cnv.width = cnv.parentElement.clientWidth || cnv.parentElement.offsetWidth;
+        const onResize = () => {
+            cnv.height = cnv.parentElement.clientHeight || cnv.parentElement.offsetHeight;
+            cnv.width = cnv.parentElement.clientWidth || cnv.parentElement.offsetWidth;
+        }
+        onResize();
+        window.addEventListener("resize", onResize);
         const particles: Array<ParticleBluePrint> = [];
         for (let i = 0; i < partNum; i++) {
             if (i < Math.floor(partNum/3)) {
@@ -123,6 +127,9 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ proximity_threshold, pa
             requestAnimationFrame(animate);
         }
         requestAnimationFrame(animate);
+        return () => {
+            window.removeEventListener("resize", onResize);
+        }
     }, [ref, mouseCoordinates]);
     return (
         <canvas 
