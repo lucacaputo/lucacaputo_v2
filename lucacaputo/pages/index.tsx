@@ -3,13 +3,12 @@ import CanvasContext from "../contextes/CanvasContext";
 import ScrollWheel from "../components/ScrollWheel";
 // import Terminal from "../components/Terminal/Terminal";
 // import SwipeChange from "../components/SwipeChange/SwipeChange";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import ParticlesCanvas from "../components/ParticlesCanvas/ParticlesCanvas";
 import { isMobile } from "react-device-detect";
 
 const Home = () => {
-    const colors = ["red", "yellow", "blue"];
     const scrollHere = useRef<null | HTMLDivElement>(null);
     return (
             <motion.div 
