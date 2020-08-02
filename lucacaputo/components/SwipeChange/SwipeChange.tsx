@@ -33,6 +33,7 @@ const clamp = (num: number, lower: number, upper: number): number => {
 
 const SwipeChange: React.FC = () => {
     const [ref, { width }] = useMeasure({ polyfill: ResizeObserver });
+    //@ts-ignore
     const [{ x }, set] = useSpring(() => ({ x: 200 }));
     const bind = useDrag(({ movement: [mx], memo = x.getValue() }) => {
         set({ x: clamp(mx + memo, -width/2, width/2) });
