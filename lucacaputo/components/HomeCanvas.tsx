@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useContext } from "react";
+import { useRef, useEffect, useContext } from "react";
 import { CanvasContext } from "../contextes/CanvasContext";
 
 interface HomeCanvasProps {
