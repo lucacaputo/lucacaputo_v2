@@ -26,7 +26,7 @@ const MobNav = styled(animated.nav)`
     left:0;
     z-index: 10;
     flex-direction: column;
-    background-color: #000;
+    background-color: #1b1b2f;
     @media (max-width: 767px) {
         display: flex;
     }
@@ -117,7 +117,7 @@ const Navbar: React.FC<NavProps> = ({ links }) => {
                 style={{
                     opacity: pathname === "/" ? op : 1,
                     transform: pathname === "/" ? tr.interpolate(v => `translate3d(0px, ${v}px, 0px)`) : "none",
-                    backgroundColor: pathname === "/" ? back.interpolate(v => `rgba(0,0,0,${v})`) : "rgba(0,0,0,0.8)",
+                    backgroundColor: pathname === "/" ? back.interpolate(v => `rgba(27, 27, 47,${v})`) : "rgba(27, 27, 47,0.8)",
                     top: pathname === "/" ? top.interpolate(v => `${v}vh`) : 0,
                 }}
             >

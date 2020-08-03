@@ -90,6 +90,15 @@ const TypeWriter: React.FC<TypeWriterProps> = ({ wordSequence, beforeSentence, a
                             opacity: 0;
                         }
                     }
+                    @media (max-width: 767px) {
+                        span {
+                            font-size: 21px;
+                            line-height: 24px;
+                        }
+                        .typeWriter {
+                            align-items: center;
+                        }
+                    }
                 `}
             </style>
 
