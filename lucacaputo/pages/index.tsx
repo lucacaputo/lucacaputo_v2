@@ -12,9 +12,9 @@ const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);
     return (
             <motion.div 
-                exit={{ opacity: 0, x: 120, }} 
-                initial={{ opacity: 0, x: -120 }} 
-                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, y: -120, }} 
+                initial={{ opacity: 0, y: 120 }} 
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
                     duration: .6,
                 }}
