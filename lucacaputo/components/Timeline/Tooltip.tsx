@@ -11,6 +11,7 @@ const AnimatedTooltip = styled(animated.div)`
     z-index: -1;
     width: max-content;
     max-width: 300px;
+    box-shadow: 0 3px 7px #141414;
     &:before {
         content: "";
         border-style: solid;
