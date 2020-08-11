@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import ParticlesCanvas from "../components/ParticlesCanvas/ParticlesCanvas";
 import { isMobile } from "react-device-detect";
+import Timeline from "../components/Timeline/Timeline";
 
 const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);
@@ -32,6 +33,20 @@ const Home = () => {
                         <ParticlesCanvas partNum={isMobile ? 40 : 100} proximity_threshold={isMobile ? 50 : 100} />
                     </div>
                 </div>
+                <Timeline
+                    events={[
+                        {
+                            from: new Date("2020-08-01"),
+                            to: new Date("2020-08-31"),
+                            title: "being awesome",
+                        },
+                        {
+                            from: new Date("2019-12-16"),
+                            to: new Date("2019-12-31"),
+                            title: "being awesome before",
+                        },
+                    ]}
+                />
         </motion.div>
     );
 }
