@@ -47,7 +47,7 @@ const Tooltip: React.FC<TooltipProps> = ({ visible, text }) => {
                 opacity,
             }}
         >
-            <span style={{ marginBlockEnd: 0, fontSize: 14, color: "#eee" }}>{text}</span>
+            <span style={{ marginBlockEnd: 0, fontSize: 14, color: "#fff" }}>{text}</span>
         </AnimatedTooltip>
     );
 }
