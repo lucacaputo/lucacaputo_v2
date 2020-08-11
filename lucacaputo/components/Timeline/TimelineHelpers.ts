@@ -6,6 +6,9 @@ export const getPercentages = (events: Array<TimeEvent>) => {
         acc += prev;
         return acc;
     });
-    const percentages = times.map( el => (el*100)/totTime );
-    return percentages;
+    return times.map( el => (el*100)/totTime );
+}
+
+export const getStringDate = (d1: Date, d2: Date) => {
+
 }
