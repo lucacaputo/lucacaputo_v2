@@ -4,6 +4,7 @@ import { animated, useSpring, config } from "react-spring";
 import styled from "styled-components";
 import Tooltip from "./Tooltip";
 import { useState } from "react";
+import { getStringDate } from "./TimelineHelpers";
 
 interface DotProps {
     event: TimeEvent;
@@ -56,7 +57,7 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                     />
                     <Tooltip
                         visible={tooltipVisible}
-                        text={event.title}
+                        text={getStringDate(event.from, event.to)}
                     />
                 </div>
             </div>
