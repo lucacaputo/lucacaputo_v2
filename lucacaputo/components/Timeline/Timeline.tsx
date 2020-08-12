@@ -2,7 +2,7 @@ import { getPercentages } from "./TimelineHelpers";
 import Dot from "./Dot";
 
 export type TimeEvent = {
-    title: string,
+    description: string,
     from: Date,
     to: Date,
 }
