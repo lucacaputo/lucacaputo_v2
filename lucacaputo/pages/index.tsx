@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import ParticlesCanvas from "../components/ParticlesCanvas/ParticlesCanvas";
 import { isMobile } from "react-device-detect";
 import Timeline from "../components/Timeline/Timeline";
+import InViewport from "../components/InViewport";
 
 const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);

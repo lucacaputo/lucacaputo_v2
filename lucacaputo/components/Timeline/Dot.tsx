@@ -6,6 +6,7 @@ import Tooltip from "./Tooltip";
 import { useState } from "react";
 import { getStringDate } from "./TimelineHelpers";
 import { isMobile } from "react-device-detect";
+import InViewport from "../InViewport";
 
 interface DotProps {
     event: TimeEvent;
@@ -94,14 +95,19 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                         }}
                         onMouseEnter={() => setScale({ scale: 1.2 })}
                         onMouseLeave={() => setScale({ scale: 1 })}
-                        onClick={() => setTooltipVisible(tooltip => !tooltip)}
+                        // onClick={() => setTooltipVisible(tooltip => !tooltip)}
                     />
                     {
                         !isMobile &&
-                        <Tooltip
-                            visible={tooltipVisible}
-                            text={getStringDate(event.from, event.to)}
-                        />
+                        <InViewport
+                            onEnter={() => setTooltipVisible(true)}
+                            onExit={() => setTooltipVisible(false)}
+                        >
+                            <Tooltip
+                                visible={tooltipVisible}
+                                text={getStringDate(event.from, event.to)}
+                            />
+                        </InViewport>
                     }
                 </div>
                 <AnimatedTextBox style={{
