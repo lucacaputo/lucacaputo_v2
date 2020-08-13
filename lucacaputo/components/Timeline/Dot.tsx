@@ -118,7 +118,15 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                         <span className="animDesc">
                             {
                                 isMobile &&
-                                <><span style={{ display: "block", color: "#e43f5a", fontSize: 14, fontWeight: "bold" }}>{getStringDate(event.from, event.to)}</span> <br /></>
+                                <InViewport
+                                    onEnter={() => setTooltipVisible(true)}
+                                    onExit={() => setTooltipVisible(false)}
+                                >
+                                    <span style={{ display: "block", color: "#e43f5a", fontSize: 14, fontWeight: "bold" }}>
+                                        {getStringDate(event.from, event.to)}
+                                    </span> 
+                                    <br />
+                                </InViewport>
                             }
                             { event.description }
                         </span>
