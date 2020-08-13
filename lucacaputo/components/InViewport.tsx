@@ -17,7 +17,7 @@ const InViewport: React.FC<InViewportProps> = ({
         const scrollFunction = () => {
             const { top, bottom } = div.getBoundingClientRect();
             const wh = window.innerHeight || document.documentElement.clientHeight;
-            if (Math.abs(top) < wh && bottom >= 0) {
+            if (top < wh && top > 0 && bottom >= 0) {
                 if (!isInViewport) onEnter();
                 setInViewport(true);
             } else {
