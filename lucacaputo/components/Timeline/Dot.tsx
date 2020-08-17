@@ -112,6 +112,9 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                         width: 25px;
                         height: 25px;
                     }
+                    .line {
+                        left: 12.5px;
+                    }
                 }
             `}</style>
             <div className="line"></div>
