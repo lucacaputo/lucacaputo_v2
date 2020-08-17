@@ -1,6 +1,6 @@
 import { TimeEvent } from "./Timeline";
 import { CSSProperties } from "react";
-import { animated, useSpring, config } from "react-spring";
+import { animated, useSpring } from "react-spring";
 import styled from "styled-components";
 import Tooltip from "./Tooltip";
 import { useState } from "react";
@@ -14,35 +14,24 @@ interface DotProps {
 }
 
 const AnimatedDot = styled(animated.div)`
-    height: 50px;
-    width: 50px;
-    position: relative;
-    border-radius: 50%;
-    background-color: #1f4068;
-    cursor: pointer;
-    margin: 5px 0;
+    
 `;
 const AnimatedTextBox = styled(animated.div)`
-    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
-    left: 20px;
-    border-radius: 3px;
+    position: relative;
     overflow: hidden;
+    left: 25px;
+    text-align: center;
 `;
 
 const Dot: React.FC<DotProps> = ({ event, style }) => {
-    const [{ scale }, setScale] = useSpring(() => ({
-        scale: 1,
-        config: config.wobbly,
-    }));
     const [ tooltipVisible, setTooltipVisible ] = useState(false);
-    const { flex } = useSpring({
+    const { width } = useSpring({
         from: {
-            flex: 0,
+            width: 0,
         },
-        flex:  tooltipVisible ? 1 : 0,
+        width: tooltipVisible ? 430 : 0,
     });
     return (
         <div style={style} className="DotContainer">
@@ -60,8 +49,6 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                 }
                 .dotAndTooltip {
                     position: relative;
-                    display: flex;
-                    align-items: center;
                 }
                 .descCont {
                     overflow: hidden;
@@ -69,17 +56,27 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                     background-color: #eee;
                     border-radius: 3px;
                 }
-                .arrow {
-                    border-style: solid;
-                    border-width: 10px 15px 10px 0;
-                    border-color: transparent #eee transparent transparent;
+                .dot {
+                    height: 50px;
+                    width: 50px;
+                    position: relative;
+                    border-radius: 50%;
+                    background-color: #1f4068;
+                    margin: 5px 0;
                 }
-                .animDesc {
-                    margin-block-end: 0;
-                    font-size: 16px;
-                    width: max-content;
-                    display: block;
+                .desc_padding {
+                    padding: 7px;
+                    border-radius: 3px;
+                    background-color: #e5e5e5;
+                    min-width: 400px;
                     max-width: 400px;
+                }
+                .arrow {
+                    width: 0; 
+                    height: 0; 
+                    border-top: 10px solid transparent;
+                    border-bottom: 10px solid transparent; 
+                    border-right:15px solid #e5e5e5;
                 }
                 @media screen and (max-width: 767px) {
                     .animDesc {
@@ -87,52 +84,29 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                     }
                 }
             `}</style>
-            <div className="tooltipDotAndDesc">
-                <div className="dotAndTooltip">
-                    <AnimatedDot
-                        style={{
-                            transform: scale.interpolate(s => `scale(${s})`),
-                        }}
-                        onMouseEnter={() => setScale({ scale: 1.2 })}
-                        onMouseLeave={() => setScale({ scale: 1 })}
-                        // onClick={() => setTooltipVisible(tooltip => !tooltip)}
-                    />
-                    {
-                        !isMobile &&
-                        <InViewport
-                            onEnter={() => setTooltipVisible(true)}
-                            onExit={() => setTooltipVisible(false)}
-                        >
-                            <Tooltip
-                                visible={tooltipVisible}
-                                text={getStringDate(event.from, event.to)}
-                            />
-                        </InViewport>
-                    }
-                </div>
-                <AnimatedTextBox style={{
-                    flex,
-                }}>
+            <div className="dotAndTooltip">
+                <div className="dot" />
+                {
+                    !isMobile &&
+                    <InViewport 
+                        onEnter={() => setTooltipVisible(true)}
+                        onExit={() => setTooltipVisible(false)}
+                    >
+                        <Tooltip visible={tooltipVisible} text={getStringDate(event.from, event.to)} />
+                    </InViewport>
+                }
+            </div>
+            <InViewport
+                onEnter={() => setTooltipVisible(true)}
+                onExit={() => setTooltipVisible(false)}
+            >
+                <AnimatedTextBox style={{ width }}>
                     <div className="arrow" />
-                    <div className="descCont">
-                        <span className="animDesc">
-                            {
-                                isMobile &&
-                                <InViewport
-                                    onEnter={() => setTooltipVisible(true)}
-                                    onExit={() => setTooltipVisible(false)}
-                                >
-                                    <span style={{ display: "block", color: "#e43f5a", fontSize: 14, fontWeight: "bold" }}>
-                                        {getStringDate(event.from, event.to)}
-                                    </span> 
-                                    <br />
-                                </InViewport>
-                            }
-                            { event.description }
-                        </span>
+                    <div className="desc_padding">
+                        { event.description }
                     </div>
                 </AnimatedTextBox>
-            </div>
+            </InViewport>
         </div>
     )
 }

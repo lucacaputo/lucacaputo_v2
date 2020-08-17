@@ -5,7 +5,7 @@ const AnimatedTooltip = styled(animated.div)`
     border-radius: 3px;
     padding: 5px;
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 50%;
     background-color: #e43f5a;
     z-index: -1;
@@ -32,10 +32,10 @@ interface TooltipProps {
 const Tooltip: React.FC<TooltipProps> = ({ visible, text }) => {
     const { trans, opacity } = useSpring({ 
         from: {
-            trans: [-50, .3],
+            trans: [50, .3],
             opacity: 0, 
         },
-        trans: visible ? [-250, 1] : [-50, .3],
+        trans: visible ? [-150, 1] : [50, .3],
         opacity: visible ? 1 : 0,
         config: config.wobbly,
     });
