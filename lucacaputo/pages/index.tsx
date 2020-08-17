@@ -39,7 +39,7 @@ const Home = () => {
                         {
                             from: new Date("2020-08-01"),
                             to: new Date("2020-08-31"),
-                            description: "Front end and Back end developer at D@M Damsol\r\nStack: HTML5, CSS3, JS (ECMAScript 5+), PHP, MYSQL",
+                            description: "Front end and Back end developer at D@M Damsol\nStack: HTML5, CSS3, JS (ECMAScript 5+), PHP, MYSQL",
                         },
                         {
                             from: new Date("2019-12-16"),

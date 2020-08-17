@@ -1,9 +1,8 @@
 import { TimeEvent } from "./Timeline";
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 import { animated, useSpring } from "react-spring";
 import styled from "styled-components";
 import Tooltip from "./Tooltip";
-import { useState } from "react";
 import { getStringDate } from "./TimelineHelpers";
 import { isMobile } from "react-device-detect";
 import InViewport from "../InViewport";
@@ -23,16 +22,22 @@ const AnimatedTextBox = styled(animated.div)`
     overflow: hidden;
     left: 25px;
     text-align: center;
+    @media (max-width: 767px) {
+        left: 5px;
+    }
+    @media (max-width: 600px) {
+        max-width: 320px
+    }
+    @media (max-width: 480px) {
+        max-width: 300px;
+    }
 `;
 
 const Dot: React.FC<DotProps> = ({ event, style }) => {
     const [ tooltipVisible, setTooltipVisible ] = useState(false);
-    const { width } = useSpring({
-        from: {
-            width: 0,
-        },
-        width: tooltipVisible ? 430 : 0,
-    });
+    const [{ width }, setWidth] = useSpring(() => ({
+        width: 0,
+    }));
     return (
         <div style={style} className="DotContainer">
             <style jsx>{`
@@ -49,12 +54,6 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                 }
                 .dotAndTooltip {
                     position: relative;
-                }
-                .descCont {
-                    overflow: hidden;
-                    padding: 6px;
-                    background-color: #eee;
-                    border-radius: 3px;
                 }
                 .dot {
                     height: 50px;
@@ -78,9 +77,38 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                     border-bottom: 10px solid transparent; 
                     border-right:15px solid #e5e5e5;
                 }
+                .mobileDate {
+                    display: none;
+                    position: relative;
+                    color: #e43f5a;
+                    font-weight: bold;
+                }
                 @media screen and (max-width: 767px) {
-                    .animDesc {
-                        max-width: 185px;
+                    .desc_padding {
+                        display: flex;
+                        flex-direction: column;
+                        flex-wrap: wrap;
+                    }
+                    .mobileDate {
+                        display: block;
+                    }
+                }
+                @media screen and (max-width: 600px) {
+                    .desc_padding {
+                        max-width: 300px;
+                        min-width: 300px;
+                    }
+                }
+                @media screen and (max-width: 480px) {
+                    .desc_padding {
+                        max-width: 280px;
+                        min-width: 280px;
+                        font-size: 14px;
+                        padding: 4px;
+                    }
+                    .dot {
+                        width: 25px;
+                        height: 25px;
                     }
                 }
             `}</style>
@@ -97,12 +125,15 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                 }
             </div>
             <InViewport
-                onEnter={() => setTooltipVisible(true)}
-                onExit={() => setTooltipVisible(false)}
+                onEnter={() => setWidth({ width: window.innerWidth <= 600 ? 300 : 430 })}
+                onExit={() => setWidth({ width: 0 })}
             >
                 <AnimatedTextBox style={{ width }}>
                     <div className="arrow" />
                     <div className="desc_padding">
+                        <div className="mobileDate">
+                            { getStringDate(event.from, event.to) }
+                        </div>
                         { event.description }
                     </div>
                 </AnimatedTextBox>

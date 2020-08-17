@@ -22,6 +22,9 @@ const AnimatedTooltip = styled(animated.div)`
         border-color: #e43f5a transparent transparent transparent;
         transform: translateX(-50%);
     }
+    @media (max-width: 767px) {
+        display: none;
+    }
 `;
 
 interface TooltipProps {
