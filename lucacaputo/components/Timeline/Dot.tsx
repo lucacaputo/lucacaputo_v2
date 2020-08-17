@@ -12,9 +12,6 @@ interface DotProps {
     style: CSSProperties;
 }
 
-const AnimatedDot = styled(animated.div)`
-    
-`;
 const AnimatedTextBox = styled(animated.div)`
     display: flex;
     align-items: center;
@@ -46,11 +43,6 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                     justify-content: center;
                     align-items: center;
                     overflow: hidden;
-                }
-                .tooltipDotAndDesc {
-                    position: relative;
-                    display: flex;
-                    justify-content: center;
                 }
                 .dotAndTooltip {
                     position: relative;
