@@ -43,6 +43,7 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                     justify-content: center;
                     align-items: center;
                     overflow: hidden;
+                    position: relative;
                 }
                 .dotAndTooltip {
                     position: relative;
@@ -53,7 +54,7 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                     position: relative;
                     border-radius: 50%;
                     background-color: #1f4068;
-                    margin: 5px 0;
+                    outline: 3px solid #fff;
                 }
                 .desc_padding {
                     padding: 7px;
@@ -74,6 +75,15 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                     position: relative;
                     color: #e43f5a;
                     font-weight: bold;
+                }
+                .line {
+                    position: relative;
+                    top: 0;
+                    left: 25px;
+                    z-index: -1;
+                    width: 0;
+                    outline: 1px solid #1f4068;
+                    height: 100%;
                 }
                 @media screen and (max-width: 767px) {
                     .desc_padding {
@@ -104,6 +114,7 @@ const Dot: React.FC<DotProps> = ({ event, style }) => {
                     }
                 }
             `}</style>
+            <div className="line"></div>
             <div className="dotAndTooltip">
                 <div className="dot" />
                 {

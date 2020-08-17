@@ -38,7 +38,7 @@ const Tooltip: React.FC<TooltipProps> = ({ visible, text }) => {
             trans: [50, .3],
             opacity: 0, 
         },
-        trans: visible ? [-150, 1] : [50, .3],
+        trans: visible ? [-200, 1] : [50, .3],
         opacity: visible ? 1 : 0,
         config: config.wobbly,
     });
