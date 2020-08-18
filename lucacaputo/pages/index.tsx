@@ -33,20 +33,22 @@ const Home = () => {
                         <ParticlesCanvas partNum={isMobile ? 40 : 100} proximity_threshold={isMobile ? 50 : 100} />
                     </div>
                 </div>
-                <Timeline
-                    events={[
-                        {
-                            from: new Date("2020-08-01"),
-                            to: new Date("2020-08-31"),
-                            description: "Front end and Back end developer at D@M Damsol\nStack: HTML5, CSS3, JS (ECMAScript 5+), PHP, MYSQL",
-                        },
-                        {
-                            from: new Date("2019-12-16"),
-                            to: new Date("2019-12-31"),
-                            description: "being awesome before",
-                        },
-                    ]}
-                />
+                <div className="mainContainer">
+                    <Timeline
+                        events={[
+                            {
+                                from: new Date("2020-08-01"),
+                                to: new Date("2020-08-31"),
+                                description: "Front end and Back end developer at D@M Damsol\nStack: HTML5, CSS3, JS (ECMAScript 5+), PHP, MYSQL",
+                            },
+                            {
+                                from: new Date("2019-12-16"),
+                                to: new Date("2019-12-31"),
+                                description: "being awesome before",
+                            },
+                        ]}
+                    />
+                </div>
         </motion.div>
     );
 }

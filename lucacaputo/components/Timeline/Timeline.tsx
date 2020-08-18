@@ -27,6 +27,7 @@ const Timeline: React.FC<TimelineProps> = ({
                             height: `${percentages[i]}%`,
                         }}
                         event={evt}
+                        first={i === 0}
                     />
                 ))
             }

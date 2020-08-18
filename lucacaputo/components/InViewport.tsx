@@ -26,7 +26,9 @@ const InViewport: React.FC<InViewportProps> = ({
             }
         }
         window.addEventListener("scroll", scrollFunction);
+        window.addEventListener("load", scrollFunction);
         return () => {
+            window.removeEventListener("load", scrollFunction);
             window.removeEventListener("scroll", scrollFunction);
         }
     }, [isInViewport, divRef]);

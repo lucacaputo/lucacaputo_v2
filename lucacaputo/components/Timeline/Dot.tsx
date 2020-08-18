@@ -1,151 +1,126 @@
+import { useState, CSSProperties, useEffect } from "react";
 import { TimeEvent } from "./Timeline";
-import { CSSProperties, useState } from "react";
 import { animated, useSpring } from "react-spring";
 import styled from "styled-components";
 import Tooltip from "./Tooltip";
-import { getStringDate } from "./TimelineHelpers";
-import { isMobile } from "react-device-detect";
 import InViewport from "../InViewport";
+import { getStringDate } from "./TimelineHelpers";
 
 interface DotProps {
+    first: boolean;
     event: TimeEvent;
-    style: CSSProperties;
+    style?: CSSProperties;
 }
 
-const AnimatedTextBox = styled(animated.div)`
+const Description = styled(animated.div)`
+    position: relative;
     display: flex;
     align-items: center;
-    position: relative;
     overflow: hidden;
-    left: 25px;
-    text-align: center;
-    @media (max-width: 767px) {
-        left: 5px;
-    }
-    @media (max-width: 600px) {
-        max-width: 320px
-    }
-    @media (max-width: 480px) {
-        max-width: 300px;
-    }
 `;
 
-const Dot: React.FC<DotProps> = ({ event, style }) => {
-    const [ tooltipVisible, setTooltipVisible ] = useState(false);
-    const [{ width }, setWidth] = useSpring(() => ({
-        width: 0,
-    }));
+const Dot: React.FC<DotProps> = ({ first, event, style }) => {
+    const [eventVisible, setEventVisible] = useState<boolean>(false);
+    const [vport, setViewport] = useState<number>(85);
+    const { width } = useSpring({
+        from: {
+            width: 0,
+        },
+        width: eventVisible ? vport : 0,
+    });
+    useEffect(() => {
+        const resize = () => {
+            let w = window.innerWidth || document.documentElement.clientWidth;
+            if (w <= 560) setViewport(90);
+            else if (vport === 90) setViewport(85);
+        }
+        resize();
+        window.addEventListener("resize", resize);
+        return () => {
+            window.removeEventListener("resize", resize);
+        }
+    }, [vport]);
     return (
-        <div style={style} className="DotContainer">
+        <>
+            <div className="dotWrapper" style={style}>
+                <div className="dotAndTooltip">
+                    <div className="dot" />
+                    <InViewport
+                        onEnter={() => setEventVisible(true)}
+                        onExit={() => setEventVisible(false)}
+                    >
+                        <Tooltip 
+                            visible={eventVisible}
+                            text={getStringDate(event.from, event.to)}
+                        />
+                    </InViewport>
+                </div>
+                <Description
+                    style={{
+                        width: width.interpolate(w => `${w}%`)
+                    }}
+                >
+                    <div className="arrow" />
+                    <div className="withPadding">
+                        <p>
+                            { event.description }
+                        </p>
+                    </div>
+                </Description>
+            </div>
             <style jsx>{`
-                .DotContainer {
+                .dotWrapper {
                     display: flex;
+                    position: relative;
                     justify-content: center;
                     align-items: center;
-                    overflow: hidden;
+                }
+                .dot {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background-color: #1f4068;
                     position: relative;
                 }
                 .dotAndTooltip {
                     position: relative;
+                    width: 15%;
+                    display: flex;
+                    justify-content: center;
                 }
-                .dot {
-                    height: 50px;
-                    width: 50px;
-                    position: relative;
-                    border-radius: 50%;
-                    background-color: #1f4068;
-                    outline: 3px solid #fff;
-                }
-                .desc_padding {
-                    padding: 7px;
-                    border-radius: 3px;
+                .withPadding {
+                    padding: 6px;
                     background-color: #e5e5e5;
+                    border-radius: 3px;
+                }
+                .withPadding > p {
+                    margin-block-end: 0;
+                    margin-block-start: 0;
+                    font-size: 1rem;
+                    display: inline-block;
+                    width: 100%;
                     min-width: 400px;
-                    max-width: 400px;
+                    white-space: pre-wrap;
+                    text-align: center;
                 }
                 .arrow {
-                    width: 0; 
-                    height: 0; 
-                    border-top: 10px solid transparent;
-                    border-bottom: 10px solid transparent; 
-                    border-right:15px solid #e5e5e5;
+                    border-style: solid;
+                    border-width: 10px 15px 10px 0;
+                    border-color: transparent #e5e5e5 transparent transparent;
                 }
-                .mobileDate {
-                    display: none;
-                    position: relative;
-                    color: #e43f5a;
-                    font-weight: bold;
-                }
-                .line {
-                    position: relative;
-                    top: 0;
-                    left: 25px;
-                    z-index: -1;
-                    width: 0;
-                    outline: 1px solid #1f4068;
-                    height: 100%;
-                }
-                @media screen and (max-width: 767px) {
-                    .desc_padding {
-                        display: flex;
-                        flex-direction: column;
-                        flex-wrap: wrap;
-                    }
-                    .mobileDate {
-                        display: block;
-                    }
-                }
-                @media screen and (max-width: 600px) {
-                    .desc_padding {
-                        max-width: 300px;
-                        min-width: 300px;
-                    }
-                }
-                @media screen and (max-width: 480px) {
-                    .desc_padding {
-                        max-width: 280px;
-                        min-width: 280px;
-                        font-size: 14px;
-                        padding: 4px;
-                    }
+                @media screen and (max-width: 560px) {
                     .dot {
                         width: 25px;
                         height: 25px;
                     }
-                    .line {
-                        left: 12.5px;
+                    .dotAndTooltip {
+                        width: 10%;
                     }
+
                 }
             `}</style>
-            <div className="line"></div>
-            <div className="dotAndTooltip">
-                <div className="dot" />
-                {
-                    !isMobile &&
-                    <InViewport 
-                        onEnter={() => setTooltipVisible(true)}
-                        onExit={() => setTooltipVisible(false)}
-                    >
-                        <Tooltip visible={tooltipVisible} text={getStringDate(event.from, event.to)} />
-                    </InViewport>
-                }
-            </div>
-            <InViewport
-                onEnter={() => setWidth({ width: window.innerWidth <= 600 ? 300 : 430 })}
-                onExit={() => setWidth({ width: 0 })}
-            >
-                <AnimatedTextBox style={{ width }}>
-                    <div className="arrow" />
-                    <div className="desc_padding">
-                        <div className="mobileDate">
-                            { getStringDate(event.from, event.to) }
-                        </div>
-                        { event.description }
-                    </div>
-                </AnimatedTextBox>
-            </InViewport>
-        </div>
-    )
+        </>
+    );
 }
 
 export default Dot;
