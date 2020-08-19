@@ -1,10 +1,12 @@
-import { useState, CSSProperties, useEffect } from "react";
+import { useState, CSSProperties, Fragment, useEffect } from "react";
 import { TimeEvent } from "./Timeline";
 import { animated, useSpring } from "react-spring";
 import styled from "styled-components";
 import Tooltip from "./Tooltip";
 import InViewport from "../InViewport";
 import { getStringDate } from "./TimelineHelpers";
+import useMeasure from "react-use-measure";
+import { ResizeObserver } from "@juggle/resize-observer";
 
 interface DotProps {
     first: boolean;
@@ -20,50 +22,44 @@ const Description = styled(animated.div)`
 `;
 
 const Dot: React.FC<DotProps> = ({ first, event, style }) => {
-    const [eventVisible, setEventVisible] = useState<boolean>(false);
-    const [vport, setViewport] = useState<number>(85);
+    const [tooltipVisible, setTooltipVisible] = useState<boolean>(false);
+    const [descVisible, setDescVisible] = useState<boolean>(false);
+    const [ref, { width: fullWidth }] = useMeasure({ polyfill: ResizeObserver });
     const { width } = useSpring({
-        from: {
-            width: 0,
-        },
-        width: eventVisible ? vport : 0,
+        from: { width: 0 },
+        width: descVisible ? 85 : 0,
     });
-    useEffect(() => {
-        const resize = () => {
-            let w = window.innerWidth || document.documentElement.clientWidth;
-            if (w <= 560) setViewport(90);
-            else if (vport === 90) setViewport(85);
-        }
-        resize();
-        window.addEventListener("resize", resize);
-        return () => {
-            window.removeEventListener("resize", resize);
-        }
-    }, [vport]);
     return (
         <>
-            <div className="dotWrapper" style={style}>
+            <div className="dotWrapper" style={style} ref={ref}>
                 <div className="dotAndTooltip">
-                    <div className="dot" />
+                    <div className="dot" onClick={() => setDescVisible(v => !v)} />
                     <InViewport
-                        onEnter={() => setEventVisible(true)}
-                        onExit={() => setEventVisible(false)}
+                        onEnter={() => setTooltipVisible(true)}
+                        onExit={() => setTooltipVisible(false)}
                     >
-                        <Tooltip 
-                            visible={eventVisible}
+                        <Tooltip
+                            visible={tooltipVisible}
                             text={getStringDate(event.from, event.to)}
                         />
                     </InViewport>
                 </div>
                 <Description
-                    style={{
-                        width: width.interpolate(w => `${w}%`)
-                    }}
+                   style={{
+                       width: width.interpolate(v => `${v}%`),
+                   }}
                 >
                     <div className="arrow" />
                     <div className="withPadding">
-                        <p>
-                            { event.description }
+                        <p style={{ minWidth: Math.floor((fullWidth/100)*85) - 29 }}>
+                            <span className="mobileTooltip"> { getStringDate(event.from, event.to) } </span>
+                            {
+                                event.description.split("\n").map(el => (
+                                    <Fragment key={el}>
+                                        { el } <br />
+                                    </Fragment>
+                                ))
+                            }
                         </p>
                     </div>
                 </Description>
@@ -81,6 +77,12 @@ const Dot: React.FC<DotProps> = ({ first, event, style }) => {
                     border-radius: 50%;
                     background-color: #1f4068;
                     position: relative;
+                    cursor: pointer;
+                    transition: transform .25s ease;
+                    will-change: transform;
+                }
+                .dot:hover {
+                    transform: scale(1.2);
                 }
                 .dotAndTooltip {
                     position: relative;
@@ -90,25 +92,35 @@ const Dot: React.FC<DotProps> = ({ first, event, style }) => {
                 }
                 .withPadding {
                     padding: 6px;
-                    background-color: #e5e5e5;
                     border-radius: 3px;
+                    width: 100%;
+                    position: relative;
+                    border-radius: 3px;
+                    background-color: #e5e5e5;
                 }
                 .withPadding > p {
                     margin-block-end: 0;
                     margin-block-start: 0;
                     font-size: 1rem;
-                    display: inline-block;
-                    width: 100%;
-                    min-width: 400px;
-                    white-space: pre-wrap;
                     text-align: center;
+                    display: block;
+                    position: relative;
+                    overflow: hidden;
                 }
                 .arrow {
                     border-style: solid;
                     border-width: 10px 15px 10px 0;
                     border-color: transparent #e5e5e5 transparent transparent;
                 }
-                @media screen and (max-width: 560px) {
+                .mobileTooltip {
+                    display: none;
+                    color: #e43f5a;
+                    font-weight: bold;
+                    text-align: center;
+                    font-size: 16px;
+                    width: 100%;
+                }
+                @media screen and (max-width: 767px) {
                     .dot {
                         width: 25px;
                         height: 25px;
@@ -116,7 +128,9 @@ const Dot: React.FC<DotProps> = ({ first, event, style }) => {
                     .dotAndTooltip {
                         width: 10%;
                     }
-
+                    .mobileTooltip {
+                        display: block;
+                    }
                 }
             `}</style>
         </>
