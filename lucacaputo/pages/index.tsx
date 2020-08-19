@@ -29,7 +29,7 @@ const Home = () => {
                     })
                 }} />
                 <div style={{overflowX:"hidden"}} ref={scrollHere}>
-                    <div style={{height:"100vh", marginTop: 40}}>
+                    <div style={{height:"100vh", overflow: "hidden", marginTop: 40}}>
                         <ParticlesCanvas partNum={isMobile ? 40 : 100} proximity_threshold={isMobile ? 50 : 100} />
                     </div>
                 </div>
