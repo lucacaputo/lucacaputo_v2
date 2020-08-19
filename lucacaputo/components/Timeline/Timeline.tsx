@@ -28,6 +28,7 @@ const Timeline: React.FC<TimelineProps> = ({
                         }}
                         event={evt}
                         first={i === 0}
+                        last={i === events.length-1}
                     />
                 ))
             }

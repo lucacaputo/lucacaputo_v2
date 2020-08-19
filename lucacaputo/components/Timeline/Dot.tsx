@@ -1,4 +1,4 @@
-import { useState, CSSProperties, Fragment, useEffect } from "react";
+import { useState, CSSProperties, Fragment } from "react";
 import { TimeEvent } from "./Timeline";
 import { animated, useSpring } from "react-spring";
 import styled from "styled-components";
@@ -10,6 +10,7 @@ import { ResizeObserver } from "@juggle/resize-observer";
 
 interface DotProps {
     first: boolean;
+    last: boolean;
     event: TimeEvent;
     style?: CSSProperties;
 }
@@ -21,7 +22,7 @@ const Description = styled(animated.div)`
     overflow: hidden;
 `;
 
-const Dot: React.FC<DotProps> = ({ first, event, style }) => {
+const Dot: React.FC<DotProps> = ({ first, event, style, last }) => {
     const [tooltipVisible, setTooltipVisible] = useState<boolean>(false);
     const [descVisible, setDescVisible] = useState<boolean>(false);
     const [ref, { width: fullWidth }] = useMeasure({ polyfill: ResizeObserver });
@@ -86,9 +87,9 @@ const Dot: React.FC<DotProps> = ({ first, event, style }) => {
                 }
                 .dotAndTooltip {
                     position: relative;
-                    width: 15%;
                     display: flex;
                     justify-content: center;
+                    width: 15%;
                 }
                 .withPadding {
                     padding: 6px;
@@ -124,9 +125,6 @@ const Dot: React.FC<DotProps> = ({ first, event, style }) => {
                     .dot {
                         width: 25px;
                         height: 25px;
-                    }
-                    .dotAndTooltip {
-                        width: 10%;
                     }
                     .mobileTooltip {
                         display: block;
