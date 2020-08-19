@@ -1,5 +1,6 @@
 import { getPercentages } from "./TimelineHelpers";
 import Dot from "./Dot";
+import LineDrawer from "./LineDrawer";
 
 export type TimeEvent = {
     description: string,
@@ -19,6 +20,7 @@ const Timeline: React.FC<TimelineProps> = ({
     const percentages = getPercentages(events);
     return (
         <div style={{ height }}>
+            <LineDrawer />
             {
                 events.map((evt, i) => (
                     <Dot 
