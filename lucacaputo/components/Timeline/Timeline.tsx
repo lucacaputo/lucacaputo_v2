@@ -16,7 +16,7 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
         <div className="timelineOuterWrapper">
             {
                 events.map((evt, i) => (
-                    <Segment key={`segment-${i}`} height={2} event={evt} />
+                    <Segment key={`segment-${i}`} height={2} event={evt} last={i === events.length-1} />
                 ))
             }
             <style jsx>{`

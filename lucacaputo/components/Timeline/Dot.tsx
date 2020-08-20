@@ -7,9 +7,11 @@ import { useState } from "react";
 import InViewport from "../InViewport";
 import Tooltip from "./Tooltip";
 import { getDateRange } from "./Helpers";
+import Line from "./Line";
 
 interface DotProps {
     event: TimeEvent;
+    last: boolean;
 }
 
 const Description = styled(animated.div)`
@@ -20,7 +22,7 @@ const Description = styled(animated.div)`
     left: 15px;
 `;
 
-const Dot: React.FC<DotProps> = ({ event }) => {
+const Dot: React.FC<DotProps> = ({ event, last }) => {
     const [ref, { width }] = useMeasure({ polyfill: ResizeObserver });
     const [descVisible, setDescVisible] = useState(false);
     const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -29,32 +31,38 @@ const Dot: React.FC<DotProps> = ({ event }) => {
         flex: descVisible ? 1 : 0,
     });
     return (
-        <div className="dotWrapper" ref={ref}>
-            <div className="dotAndTooltip">
-                <div className="dot" onClick={() => setDescVisible(v => !v)} />
-                <InViewport
-                    onEnter={() => setTooltipVisible(true)}
-                    onExit={() => setTooltipVisible(false)}
-                >
-                    <Tooltip text={getDateRange(event.from, event.to)} visible={tooltipVisible} />
-                </InViewport>
-            </div>
-            <Description style={{ flex }}>
-                <div className="arrow" />
-                <div className="descPadding">
-                    <p style={{ minWidth: width - 92 }}>
-                        <span className="mobileTooltip"> {getDateRange(event.from, event.to)} </span>
-                        { event.description }
-                        {
-                            event.notes &&
-                            <>
-                                <br />
-                                <i style={{ fontSize: 14 }}> {event.notes} </i>
-                            </>
-                        }
-                    </p>
+        <>
+            <div className="dotWrapper" ref={ref}>
+                <div className="dotAndTooltip">
+                    <div className="dot" onClick={() => setDescVisible(v => !v)} />
+                    <InViewport
+                        onEnter={() => setTooltipVisible(true)}
+                        onExit={() => setTooltipVisible(false)}
+                    >
+                        <Tooltip text={getDateRange(event.from, event.to)} visible={tooltipVisible} />
+                    </InViewport>
                 </div>
-            </Description>
+                <Description style={{ flex }}>
+                    <div className="arrow" />
+                    <div className="descPadding">
+                        <p style={{ minWidth: width - 92 }}>
+                            <span className="mobileTooltip"> {getDateRange(event.from, event.to)} </span>
+                            { event.description }
+                            {
+                                event.notes &&
+                                <>
+                                    <br />
+                                    <i style={{ fontSize: 14 }}> {event.notes} </i>
+                                </>
+                            }
+                        </p>
+                    </div>
+                </Description>
+            </div>
+            {
+                !last &&
+                <Line visible={tooltipVisible} spcerVisible={descVisible} />
+            }
             <style jsx>{`
                 .dotWrapper {
                     display: flex;
@@ -121,7 +129,7 @@ const Dot: React.FC<DotProps> = ({ event }) => {
                     }
                 }
             `}</style>
-        </div>
+        </>
     );
 }
 
