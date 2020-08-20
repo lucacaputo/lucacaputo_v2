@@ -42,6 +42,7 @@ const Dot: React.FC<DotProps> = ({ event }) => {
                 <div className="arrow" />
                 <div className="descPadding">
                     <p style={{ minWidth: width - 92 }}>
+                        <span className="mobileTooltip"> {getDateRange(event.from, event.to)} </span>
                         { event.description }
                         {
                             event.notes &&
@@ -99,6 +100,24 @@ const Dot: React.FC<DotProps> = ({ event }) => {
                 .dotAndTooltip {
                     position: relative;
                     pointer-events: all;
+                }
+                .mobileTooltip {
+                    font-size: 14px;
+                    color: #e43f5a;
+                    font-weight: bold;
+                    text-align: center;
+                    width: 100%;
+                    margin-bottom: 10px;
+                    display: none;
+                }
+                @media screen and (max-width: 767px) {
+                    .mobileTooltip {
+                        display: block;
+                    }
+                    .dot {
+                        width: 35px;
+                        height: 35px;
+                    }
                 }
             `}</style>
         </div>

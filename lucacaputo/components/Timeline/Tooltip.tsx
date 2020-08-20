@@ -14,6 +14,9 @@ const AnimatedTooltip = styled(animated.div)`
     top: 0;
     left: 50%;
     width: max-content;
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
 `;
 
 const Tooltip: React.FC<TooltipProps> = ({ text, visible }) => {
