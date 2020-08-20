@@ -18,8 +18,8 @@ const AnimatedTooltip = styled(animated.div)`
 
 const Tooltip: React.FC<TooltipProps> = ({ text, visible }) => {
     const { trans, opacity } = useSpring({
-        from: { trans: [-150, 0], opacity: 0 },
-        trans: visible ? [-120, 1] : [-150, 0],
+        from: { trans: [150, 0], opacity: 0 },
+        trans: visible ? [-120, 1] : [150, 0],
         opacity: visible ? 1 : 0,
         config: config.wobbly,
     })
