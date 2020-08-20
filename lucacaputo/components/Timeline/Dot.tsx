@@ -16,7 +16,8 @@ const Description = styled(animated.div)`
     display: flex;
     align-items: center;
     overflow: hidden;
-    margin-left: 15px;
+    position: relative;
+    left: 15px;
 `;
 
 const Dot: React.FC<DotProps> = ({ event }) => {
