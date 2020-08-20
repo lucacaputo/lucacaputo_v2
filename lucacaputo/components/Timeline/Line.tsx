@@ -4,13 +4,14 @@ import styled from "styled-components";
 interface LineProps {
     visible: boolean;
     spcerVisible: boolean;
+    hOffset: number;
 }
 
 const AnimatedLine = styled(animated.line)`
 
 `;
 
-const Line: React.FC<LineProps> = ({ visible, spcerVisible }) => {
+const Line: React.FC<LineProps> = ({ visible, spcerVisible, hOffset }) => {
     const { flex } = useSpring({
         from: { flex: 0 },
         flex: spcerVisible ? 1 : 0,
@@ -18,7 +19,7 @@ const Line: React.FC<LineProps> = ({ visible, spcerVisible }) => {
     const { strokeDashoffset } = useSpring({
         from: { strokeDashoffset: 0 },
         strokeDashoffset: visible && !spcerVisible ? 0 : 100,
-        delay: 600,
+        delay: visible && !spcerVisible ? 600 : 0,
     });
     return (
         <div className="lineWrapper">
@@ -49,12 +50,15 @@ const Line: React.FC<LineProps> = ({ visible, spcerVisible }) => {
             <style jsx>{`
                 .lineCont {
                     width: 50px;
+                    height: calc(100% + ${hOffset}px);
+                    transform: translateY(-${hOffset/2}px);
                 }
                 .lineWrapper {
                     flex: 1;
                     align-items: stretch;
                     display: flex;
                     justify-content: center;
+                    position: relative;
                 }
                 @media screen and (max-width: 767px) {
                     .lineCont {

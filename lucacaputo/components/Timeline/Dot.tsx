@@ -23,12 +23,12 @@ const Description = styled(animated.div)`
 `;
 
 const Dot: React.FC<DotProps> = ({ event, last }) => {
-    const [ref, { width }] = useMeasure({ polyfill: ResizeObserver });
+    const [ref, { width, height }] = useMeasure({ polyfill: ResizeObserver });
     const [descVisible, setDescVisible] = useState(false);
     const [tooltipVisible, setTooltipVisible] = useState(false);
     const { flex } = useSpring({
         from: { flex: 0 },
-        flex: descVisible ? 1 : 0,
+        flex: descVisible ? .99 : 0,
     });
     return (
         <>
@@ -61,7 +61,7 @@ const Dot: React.FC<DotProps> = ({ event, last }) => {
             </div>
             {
                 !last &&
-                <Line visible={tooltipVisible} spcerVisible={descVisible} />
+                <Line visible={tooltipVisible} spcerVisible={descVisible} hOffset={height} />
             }
             <style jsx>{`
                 .dotWrapper {
