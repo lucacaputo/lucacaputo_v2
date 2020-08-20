@@ -43,6 +43,13 @@ const Dot: React.FC<DotProps> = ({ event }) => {
                 <div className="descPadding">
                     <p style={{ minWidth: width - 92 }}>
                         { event.description }
+                        {
+                            event.notes &&
+                            <>
+                                <br />
+                                <i style={{ fontSize: 14 }}> {event.notes} </i>
+                            </>
+                        }
                     </p>
                 </div>
             </Description>
@@ -87,9 +94,11 @@ const Dot: React.FC<DotProps> = ({ event }) => {
                     margin-block-start: 0;
                     font-size: 1rem;
                     text-align: center;
+                    pointer-events: painted;
                 }
                 .dotAndTooltip {
                     position: relative;
+                    pointer-events: all;
                 }
             `}</style>
         </div>

@@ -21,22 +21,38 @@ const Home = () => {
                     duration: .6,
                 }}
             >
-                <CanvasContext>
-                    <HomeHeader />
-                </CanvasContext>
-                <ScrollWheel onClick={() => {
-                    scrollHere.current.scrollIntoView({
-                        behavior: "smooth",
-                    })
-                }} />
-                <div style={{overflowX:"hidden"}} ref={scrollHere}>
-                    <div style={{height:"100vh", overflow: "hidden", marginTop: 40}}>
-                        <ParticlesCanvas partNum={isMobile ? 40 : 100} proximity_threshold={isMobile ? 50 : 100} />
-                    </div>
+                <div className="head">
+                    <CanvasContext>
+                        <HomeHeader />
+                    </CanvasContext>
+                    <ScrollWheel onClick={() => {
+                        scrollHere.current.scrollIntoView({
+                            behavior: "smooth",
+                        })
+                    }} />
                 </div>
-                <div className="mainContainer">
+                <div className="particlesCont">
+                    <ParticlesCanvas partNum={isMobile ? 40 : 100} proximity_threshold={isMobile ? 50 : 100} />
+                </div>
+                <div className="mainContainer noEvts" style={{ zIndex: 1, marginTop: 150 }} ref={scrollHere}>
                     <Timeline events={events} />
                 </div>
+                <style jsx>{`
+                    .head {
+                        position: relative;
+                        z-index: 2;
+                        background-color: #fff;
+                        box-shadow: 0 2px 7px #141414;
+                    }
+                    .particlesCont {
+                        position: fixed;
+                        width: 100vw;
+                        height: 100vh;
+                        overflow: hidden;
+                        top: 0;
+                        left: 0;
+                    }
+                `}</style>
         </motion.div>
     );
 }

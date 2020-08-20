@@ -57,7 +57,7 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ proximity_threshold, pa
                     (Math.random() * 1) - .5,
                     (Math.random() * 1) - .5,
                     3,
-                    "#162447",
+                    "#1f4068",
                     Math.PI/3,
                     i
                 ));
@@ -69,7 +69,7 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ proximity_threshold, pa
                     (Math.random() * 1) - .5,
                     (Math.random() * 1) - .5,
                     3,
-                    "#162447",
+                    "#1f4068",
                     i
                 ))
             }
@@ -80,7 +80,7 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ proximity_threshold, pa
                     (Math.random() * 1) - .5,
                     (Math.random() * 1) - .5,
                     3,
-                    "#162447",
+                    "#1f4068",
                     i
                 ))
             }
