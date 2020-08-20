@@ -1,41 +1,31 @@
-import { getPercentages } from "./TimelineHelpers";
-import Dot from "./Dot";
-import LineDrawer from "./LineDrawer";
+import Segment from "./Segment";
 
 export type TimeEvent = {
-    description: string,
     from: Date,
-    to: Date,
-}
-interface TimelineProps {
-    events: Array<TimeEvent>;
-    height?: number | string;
+    to?: Date,
+    description: string,
+    notes?: string,
 }
 
-const Timeline: React.FC<TimelineProps> = ({
-    events,
-    height="100vh",
-}) => {
-    if (typeof height === "number") height = `${height}px`;
-    const percentages = getPercentages(events);
+interface TimelineProps {
+    events: Array<TimeEvent>;
+}
+
+const Timeline: React.FC<TimelineProps> = ({ events }) => {
     return (
-        <div style={{ height }}>
-            <LineDrawer />
+        <div className="timelineOuterWrapper">
             {
                 events.map((evt, i) => (
-                    <Dot 
-                        key={`dot-${i}`} 
-                        style={{
-                            height: `${percentages[i]}%`,
-                        }}
-                        event={evt}
-                        first={i === 0}
-                        last={i === events.length-1}
-                    />
+                    <Segment key={`segment-${i}`} height={2} event={evt} />
                 ))
             }
+            <style jsx>{`
+                .timelineOuterWrapper {
+                    position: relative;
+                }
+            `}</style>
         </div>
-    )
+    );
 }
 
 export default Timeline;

@@ -1,56 +1,60 @@
-import styled from "styled-components";
 import { animated, useSpring, config } from "react-spring";
+import styled from "styled-components";
+
+interface TooltipProps {
+    text: string;
+    visible: boolean;
+}
 
 const AnimatedTooltip = styled(animated.div)`
-    border-radius: 3px;
-    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
     top: 0;
     left: 50%;
-    background-color: #e43f5a;
-    z-index: -1;
     width: max-content;
-    max-width: 300px;
-    box-shadow: 0 3px 7px #141414;
-    &:before {
-        content: "";
-        border-style: solid;
-        border-width: 20px 10px 0 10px;
-        position: absolute;
-        bottom: -15px;
-        left: 50%;
-        border-color: #e43f5a transparent transparent transparent;
-        transform: translateX(-50%);
-    }
-    @media (max-width: 767px) {
-        display: none;
-    }
 `;
 
-interface TooltipProps {
-    visible: boolean;
-    text: string;
-}
-
-const Tooltip: React.FC<TooltipProps> = ({ visible, text }) => {
-    const { trans, opacity } = useSpring({ 
-        from: {
-            trans: [50, .3],
-            opacity: 0, 
-        },
-        trans: visible ? [-200, 1] : [50, .3],
+const Tooltip: React.FC<TooltipProps> = ({ text, visible }) => {
+    const { trans, opacity } = useSpring({
+        from: { trans: [-150, 0], opacity: 0 },
+        trans: visible ? [-120, 1] : [-150, 0],
         opacity: visible ? 1 : 0,
         config: config.wobbly,
-    });
+    })
     return (
-        <AnimatedTooltip 
+        <AnimatedTooltip
             style={{
                 //@ts-ignore
                 transform: trans.interpolate((tr, sc) => `translate(-50%, ${tr}%) scale(${sc})`),
-                opacity,
+                opacity
             }}
         >
-            <span style={{ marginBlockEnd: 0, fontSize: 14, color: "#fff" }}>{text}</span>
+            <p className="tooltipText">
+                { text }
+            </p>
+            <div className="arrow" />
+            <style jsx>{`
+                .tooltipText {
+                    display: block;
+                    border-radius: 3px;
+                    color: #fff;
+                    background-color: #e43f5a;
+                    font-weight: bold;
+                    padding: 5px 10px;
+                    margin-block-end: 0;
+                    margin-block-start: 0;
+                    font-size: 14px;
+                }
+                .arrow {
+                    border-style: solid;
+                    border-width: 15px 10px 0 10px;
+                    border-color: #e43f5a transparent transparent transparent;
+                    position: relative;
+                    top: -2px;
+                }
+            `}</style>
         </AnimatedTooltip>
     );
 }

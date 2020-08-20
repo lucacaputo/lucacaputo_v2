@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import ParticlesCanvas from "../components/ParticlesCanvas/ParticlesCanvas";
 import { isMobile } from "react-device-detect";
 import Timeline from "../components/Timeline/Timeline";
+import { events } from "../components/Timeline/Events";
 
 const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);
@@ -34,20 +35,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="mainContainer">
-                    <Timeline
-                        events={[
-                            {
-                                from: new Date("2020-08-01"),
-                                to: new Date("2020-08-31"),
-                                description: "Front end and Back end developer at D@M Damsol\nStack: HTML5, CSS3, JS (ECMAScript 5+), PHP, MYSQL",
-                            },
-                            {
-                                from: new Date("2019-12-16"),
-                                to: new Date("2019-12-31"),
-                                description: "being awesome before",
-                            },
-                        ]}
-                    />
+                    <Timeline events={events} />
                 </div>
         </motion.div>
     );
