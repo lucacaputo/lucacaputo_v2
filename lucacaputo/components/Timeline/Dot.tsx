@@ -6,6 +6,7 @@ import { ResizeObserver } from "@juggle/resize-observer";
 import { useState } from "react";
 import InViewport from "../InViewport";
 import Tooltip from "./Tooltip";
+import { getDateRange } from "./Helpers";
 
 interface DotProps {
     event: TimeEvent;
@@ -17,19 +18,6 @@ const Description = styled(animated.div)`
     overflow: hidden;
     margin-left: 15px;
 `;
-
-const months = [
-    "Jan", "Feb", "Mar",
-    "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep",
-    "Oct", "Nov", "Dec",
-];
-
-const getDateRange = (d1: Date, d2: Date): string => {
-    let s1 = `${d1.getDate()} ${months[d1.getMonth()]} ${d1.getFullYear()}`;
-    let s2 = d2 ? `${d2.getDate()} ${months[d2.getMonth()]} ${d2.getFullYear()}` : "now";
-    return `${s1} - ${s2}`;
-}
 
 const Dot: React.FC<DotProps> = ({ event }) => {
     const [ref, { width }] = useMeasure({ polyfill: ResizeObserver });
