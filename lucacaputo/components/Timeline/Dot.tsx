@@ -61,7 +61,7 @@ const Dot: React.FC<DotProps> = ({ event, last }) => {
             </div>
             {
                 !last &&
-                <Line visible={tooltipVisible} spcerVisible={descVisible} hOffset={height} />
+                <Line visible={tooltipVisible} spacerVisible={descVisible} hOffset={height} />
             }
             <style jsx>{`
                 .dotWrapper {

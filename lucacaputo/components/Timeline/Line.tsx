@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface LineProps {
     visible: boolean;
-    spcerVisible: boolean;
+    spacerVisible: boolean;
     hOffset: number;
 }
 
@@ -11,15 +11,15 @@ const AnimatedLine = styled(animated.line)`
 
 `;
 
-const Line: React.FC<LineProps> = ({ visible, spcerVisible, hOffset }) => {
+const Line: React.FC<LineProps> = ({ visible, spacerVisible, hOffset }) => {
     const { flex } = useSpring({
         from: { flex: 0 },
-        flex: spcerVisible ? 1 : 0,
+        flex: spacerVisible ? 1 : 0,
     });
     const { strokeDashoffset } = useSpring({
         from: { strokeDashoffset: 0 },
-        strokeDashoffset: visible && !spcerVisible ? 0 : 100,
-        delay: visible && !spcerVisible ? 600 : 0,
+        strokeDashoffset: visible && !spacerVisible ? 0 : 100,
+        delay: visible && !spacerVisible ? 600 : 0,
     });
     return (
         <div className="lineWrapper">
