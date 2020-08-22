@@ -1,13 +1,15 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, CSSProperties } from "react";
 
 interface InViewportProps {
     onEnter: () => void;
     onExit?: () => void;
+    style?: CSSProperties;
 }
 
 const InViewport: React.FC<InViewportProps> = ({
     onEnter,
     onExit,
+    style,
     children
 }) => {
     const divRef = useRef<null | HTMLDivElement>(null);
@@ -33,7 +35,7 @@ const InViewport: React.FC<InViewportProps> = ({
         }
     }, [isInViewport, divRef]);
     return (
-        <div ref={divRef}>
+        <div ref={divRef} style={style}>
             { children }
         </div>
     );

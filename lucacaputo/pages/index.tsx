@@ -8,6 +8,7 @@ import ParticlesCanvas from "../components/ParticlesCanvas/ParticlesCanvas";
 import { isMobile } from "react-device-detect";
 import Timeline from "../components/Timeline/Timeline";
 import { events } from "../components/Timeline/Events";
+import Technologies from "../components/Technologies/Technologies";
 
 const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);
@@ -29,6 +30,7 @@ const Home = () => {
             <div className="mainContainer noEvts" style={{ zIndex: 1, marginTop: 150 }} ref={scrollHere}>
                 <Timeline events={events} />
             </div>
+            <Technologies />
             <style jsx>{`
                 .head {
                     position: relative;
