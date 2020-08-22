@@ -17,6 +17,7 @@ const Technologies: React.FC = () => {
                     background-color: #fff;
                     padding: 2rem 0;
                     box-shadow: 0 0 7px #141414;
+                    overflow: hidden;
                 }
             `}</style>
         </div>
