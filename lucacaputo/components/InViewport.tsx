@@ -64,7 +64,6 @@ const InViewport: React.FC<InViewportProps> = ({
             window.removeEventListener("resize", resizeObs);
         }
     }, [divRef, isInViewport]);
-    console.log("render");
     return (
         <div ref={divRef} style={{
             ...style,
