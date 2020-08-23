@@ -20,7 +20,6 @@ const InViewport: React.FC<InViewportProps> = ({
     children
 }) => {
     const divRef = useRef<null | HTMLDivElement>(null);
-    const winref = useRef<null | number>(null);
     const [isInViewport, setInViewport] = useState(false);
     const [media, setMedia] = useState<CSSProperties>({});
     useEffect(() => {
@@ -37,15 +36,20 @@ const InViewport: React.FC<InViewportProps> = ({
             }
         }
         const resizeObs = () => {
-            winref.current = window.innerWidth || document.documentElement.clientWidth;
+            let w = window.innerWidth || document.documentElement.clientWidth;
             let sortedMedias = responsive?.sort((f, s) => f.breakpoint > s.breakpoint ? 1 : -1);
-            let activeBreakpoint = Math.min.apply(null, sortedMedias?.filter(el => el.breakpoint >= winref.current).map(el => el.breakpoint));
-            if (Math.abs(activeBreakpoint) !== Infinity) {
+            let activeBreakpoint = Math.min.apply(
+                null, 
+                (sortedMedias
+                ?.filter(el => el.breakpoint >= w)
+                .map(el => el.breakpoint))
+            );
+            if (activeBreakpoint && Math.abs(activeBreakpoint) !== Infinity) {
                 setMedia({...sortedMedias.filter(el => el.breakpoint === activeBreakpoint)[0].props})
             } else {
                 setMedia({});
             }
-        };
+        }
         resizeObs();
         window.addEventListener("scroll", scrollFunction);
         window.addEventListener("load", scrollFunction);
@@ -55,7 +59,7 @@ const InViewport: React.FC<InViewportProps> = ({
             window.removeEventListener("scroll", scrollFunction);
             window.removeEventListener("resize", resizeObs);
         }
-    }, [isInViewport, divRef, winref]);
+    }, [isInViewport, divRef]);
     return (
         <div ref={divRef} style={{
             ...style,
