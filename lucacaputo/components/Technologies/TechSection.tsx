@@ -28,6 +28,32 @@ const TechSection: React.FC<TechSectionProps> = ({ title, techs }) => {
                                 flexDirection: "column",
                                 justifyContent: "center",
                             }}
+                            responsive={[
+                                {
+                                    breakpoint: 767,
+                                    props: {
+                                        width: "33.3%",
+                                    }
+                                },
+                                {
+                                    breakpoint: 991,
+                                    props: {
+                                        width: "25%",
+                                    }
+                                },
+                                {
+                                    breakpoint: 560,
+                                    props: {
+                                        width: "50%",
+                                    }
+                                },
+                                {
+                                    breakpoint: 400,
+                                    props: {
+                                        width: "100%",
+                                    }
+                                },
+                            ]}
                         >
                             <Technology 
                                 tech={techs[i]} 
