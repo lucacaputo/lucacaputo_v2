@@ -94,5 +94,19 @@ export const techs = {
             name: "Vs code",
             image: "/vscode.png",
         },
+    ],
+    other: [
+        {
+            name: "Java",
+            image: "/java.svg",
+        },
+        {
+            name: "Python (3)",
+            image: "/python.svg",
+        },
+        {
+            name: "Scala",
+            image: "/scala.svg",
+        }
     ]
 };

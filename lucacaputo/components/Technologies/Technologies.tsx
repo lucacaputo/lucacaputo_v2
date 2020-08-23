@@ -9,6 +9,7 @@ const Technologies: React.FC = () => {
                 <TechSection title="Back End" techs={techs.backend} />
                 <TechSection title="Mobile Apps" techs={techs.mobile} />
                 <TechSection title="Tools" techs={techs.tools} />
+                <TechSection title="Other Languages" techs={techs.other} />
             </div>
             <style jsx>{`
                 .technologiesOuter {
