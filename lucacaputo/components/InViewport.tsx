@@ -44,9 +44,9 @@ const InViewport: React.FC<InViewportProps> = ({
             let sortedMedias = responsive?.sort((f, s) => f.breakpoint > s.breakpoint ? 1 : -1);
             let activeBreakpoint = Math.min.apply(
                 null, 
-                (sortedMedias
+                sortedMedias
                 ?.filter(el => el.breakpoint >= w)
-                .map(el => el.breakpoint))
+                .map(el => el.breakpoint)
             );
             if (activeBreakpoint && Math.abs(activeBreakpoint) !== Infinity) {
                 setMedia({...sortedMedias.filter(el => el.breakpoint === activeBreakpoint)[0].props})
