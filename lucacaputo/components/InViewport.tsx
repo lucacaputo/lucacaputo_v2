@@ -28,11 +28,15 @@ const InViewport: React.FC<InViewportProps> = ({
             const { top, bottom } = div.getBoundingClientRect();
             const wh = window.innerHeight || document.documentElement.clientHeight;
             if (top < wh && top > 0 && bottom >= 0) {
-                if (!isInViewport) onEnter();
-                setInViewport(true);
+                if (!isInViewport) {
+                    onEnter();
+                    setInViewport(true);
+                }
             } else {
-                if (isInViewport && onExit) onExit();
-                setInViewport(false);
+                if (isInViewport && onExit) {
+                    onExit();
+                    setInViewport(false);
+                }
             }
         }
         const resizeObs = () => {
@@ -60,6 +64,7 @@ const InViewport: React.FC<InViewportProps> = ({
             window.removeEventListener("resize", resizeObs);
         }
     }, [isInViewport, divRef]);
+    console.log("render");
     return (
         <div ref={divRef} style={{
             ...style,
