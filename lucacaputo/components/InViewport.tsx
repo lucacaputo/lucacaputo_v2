@@ -20,7 +20,7 @@ const InViewport: React.FC<InViewportProps> = ({
     children
 }) => {
     const divRef = useRef<null | HTMLDivElement>(null);
-    const [isInViewport, setInViewport] = useState(false);
+    const isInViewport = useRef(false);
     const [media, setMedia] = useState<CSSProperties>({});
     useEffect(() => {
         const div = divRef.current;
@@ -28,14 +28,14 @@ const InViewport: React.FC<InViewportProps> = ({
             const { top, bottom } = div.getBoundingClientRect();
             const wh = window.innerHeight || document.documentElement.clientHeight;
             if (top < wh && top > 0 && bottom >= 0) {
-                if (!isInViewport) {
+                if (!isInViewport.current) {
                     onEnter();
-                    setInViewport(true);
+                    isInViewport.current = true;
                 }
             } else {
-                if (isInViewport && onExit) {
+                if (isInViewport.current && onExit) {
                     onExit();
-                    setInViewport(false);
+                    isInViewport.current = false;
                 }
             }
         }
@@ -44,9 +44,9 @@ const InViewport: React.FC<InViewportProps> = ({
             let sortedMedias = responsive?.sort((f, s) => f.breakpoint > s.breakpoint ? 1 : -1);
             let activeBreakpoint = Math.min.apply(
                 null, 
-                (sortedMedias
+                sortedMedias
                 ?.filter(el => el.breakpoint >= w)
-                .map(el => el.breakpoint))
+                .map(el => el.breakpoint)
             );
             if (activeBreakpoint && Math.abs(activeBreakpoint) !== Infinity) {
                 setMedia({...sortedMedias.filter(el => el.breakpoint === activeBreakpoint)[0].props})
@@ -63,7 +63,7 @@ const InViewport: React.FC<InViewportProps> = ({
             window.removeEventListener("scroll", scrollFunction);
             window.removeEventListener("resize", resizeObs);
         }
-    }, [isInViewport, divRef]);
+    }, [divRef, isInViewport]);
     return (
         <div ref={divRef} style={{
             ...style,
