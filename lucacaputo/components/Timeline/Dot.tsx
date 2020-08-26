@@ -30,6 +30,7 @@ const Dot: React.FC<DotProps> = ({ event, last }) => {
         from: { flex: 0 },
         flex: descVisible ? .99 : 0,
     });
+    let date = getDateRange(event.from, event.to);
     return (
         <>
             <div className="dotWrapper" ref={ref}>
@@ -46,7 +47,7 @@ const Dot: React.FC<DotProps> = ({ event, last }) => {
                     <div className="arrow" />
                     <div className="descPadding">
                         <p style={{ minWidth: width - 92 }}>
-                            <span className="mobileTooltip"> {getDateRange(event.from, event.to)} </span>
+                            <span className="mobileTooltip"> {date} </span>
                             { event.description }
                             {
                                 event.notes &&

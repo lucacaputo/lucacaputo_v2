@@ -16,24 +16,19 @@ export function withViewport<T extends object>(
             const { top, bottom } = this.node.getBoundingClientRect();
             if (top < wh && top > 0 && bottom >= 0) {
                 if (!isInViewport) {
-                    onEnterViewport();
-                    this.setState({ isInViewport: true });
+                    this.setState({ isInViewport: true }, onEnterViewport);
                 }
             } else {
-                if (isInViewport && onExitViewport) {
-                    onExitViewport();
-                    this.setState({ isInViewport: false });
-                }
+                this.setState({ isInViewport: false }, onExitViewport);
             }
         }
         componentDidMount() {
             this.node = ReactDOM.findDOMNode(this);
             if (!this.node) throw new Error("node undefined!");
-            window.addEventListener("load", this.adapt);
+            this.adapt();
             window.addEventListener("scroll", this.adapt);
         }
         componentWillUnmount() {
-            window.removeEventListener("load", this.adapt);
             window.removeEventListener("scroll", this.adapt);
         }
         render() {
@@ -42,5 +37,5 @@ export function withViewport<T extends object>(
             );
         }
     }
-    return props => <InViewport {...props} />
+    return (props: T) => <InViewport {...props} />
 }
