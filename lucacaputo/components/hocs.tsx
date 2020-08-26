@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-interface WithVpProps {
+export interface WithVpProps {
     onEnter: () => void;
     onExit?: () => void;
 }

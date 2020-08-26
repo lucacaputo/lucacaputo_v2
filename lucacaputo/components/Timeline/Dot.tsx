@@ -40,7 +40,7 @@ const Dot: React.FC<DotProps> = ({ event, last }) => {
                         onEnter={() => setTooltipVisible(true)}
                         onExit={() => setTooltipVisible(false)}
                     >
-                        <Tooltip text={getDateRange(event.from, event.to)} visible={tooltipVisible} />
+                        <Tooltip text={date} visible={tooltipVisible} />
                     </InViewport>
                 </div>
                 <Description style={{ flex }}>

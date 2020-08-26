@@ -7,14 +7,12 @@ interface TechSectionProps {
     techs: Array<Tech>;
 }
 
-const viewportAware = (fn: () => void) => withViewport(Technology, fn);
-
 const TechSection: React.FC<TechSectionProps> = ({ title, techs }) => {
     const [trail, setTrail] = useTrail(techs.length, () => ({
         trans: 120,
         opacity: 0,
     }));
-    const ViewportAwareTech = viewportAware(() => setTrail({ trans: 0, opacity: 1 as 0 }));
+    const ViewportAwareTech = withViewport(Technology, () => setTrail({ trans: 0, opacity: 1 as 0 }));
     return (
         <div className="techSection">
             <h2> {title} </h2>
