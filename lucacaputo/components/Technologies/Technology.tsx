@@ -19,11 +19,11 @@ const Container = styled(animated.div)`
     width: 20%;
     position: relative;
     justify-content: center;
-    @media screen and (max-width: 767px) {
-        width: 33.3%;
-    }
     @media screen and (max-width: 991px) {
         width: 25%;
+    }
+    @media screen and (max-width: 767px) {
+        width: 33.3%;
     }
     @media screen and (max-width: 560px) {
         width: 50%;
