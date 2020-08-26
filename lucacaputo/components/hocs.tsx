@@ -6,7 +6,6 @@ export function withViewport<T extends object>(
             onEnterViewport: () => void, 
             onExitViewport?: () => void) {
     class InViewport extends React.Component<T> {
-        ref = React.createRef();
         node = null;
         state = {
             isInViewport: false,
