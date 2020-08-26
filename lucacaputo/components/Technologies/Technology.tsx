@@ -1,5 +1,6 @@
 import { animated } from "react-spring"
 import { CSSProperties } from "react";
+import styled from "styled-components";
 
 export type Tech = {
     name: string;
@@ -11,9 +12,30 @@ interface TechProp {
     style: CSSProperties;
 }
 
+const Container = styled(animated.div)`
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    position: relative;
+    justify-content: center;
+    @media screen and (max-width: 767px) {
+        width: 33.3%;
+    }
+    @media screen and (max-width: 991px) {
+        width: 25%;
+    }
+    @media screen and (max-width: 560px) {
+        width: 50%;
+    }
+    @media screen and (max-width: 400px) {
+        width: 100%;
+    }
+`;
+
 const Technology: React.FC<TechProp> = ({ tech, style }) => {
     return (
-        <animated.div style={{...style, marginBottom: 15, flex: 1, display: "flex", flexDirection: "column"}}>
+        <Container style={style}>
             <img src={tech.image} alt={`${tech.name} logo image`}/>
             <i> {tech.name} </i>
             <style jsx>{`
@@ -34,7 +56,7 @@ const Technology: React.FC<TechProp> = ({ tech, style }) => {
                     margin-top: 15px;
                 }
             `}</style>
-        </animated.div>
+        </Container>
     );
 }
 
