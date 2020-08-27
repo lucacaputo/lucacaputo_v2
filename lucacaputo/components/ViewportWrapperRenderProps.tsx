@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { isInViewport } from "./Helpers";
 
 interface WrapperProps {
-    children: <T>(ref: React.RefObject<T>) => React.ReactNode;
+    children: (ref: React.RefObject<any>) => React.ReactNode;
     onEnterViewport: () => void;
     onExitViewport?: () => void;
 }
