@@ -1,6 +1,7 @@
 import Technology, { Tech } from "./Technology";
 import { useTrail, OpaqueInterpolation } from "react-spring";
-import { withViewport } from "../hocs";
+import { useRef, useEffect } from "react";
+import { isInViewport } from "../Helpers";
 
 interface TechSectionProps {
     title: string;
@@ -12,20 +13,29 @@ const TechSection: React.FC<TechSectionProps> = ({ title, techs }) => {
         trans: 120,
         opacity: 0,
     }));
-    const ViewportAwareTech = withViewport(Technology, () => setTrail({ trans: 0, opacity: 1 as 0 }));
+    const ref = useRef<HTMLDivElement>();
+    useEffect(() => {
+        const trigger = () => isInViewport(ref.current) ? setTrail({ trans: 0, opacity: 1 as 0 }) : null;
+        trigger();
+        window.addEventListener("scroll", trigger);
+        return () => {
+            window.removeEventListener("scroll", trigger);
+        }
+    }, []);
     return (
         <div className="techSection">
             <h2> {title} </h2>
             <div className="techWrapper">
                 {
                     trail.map(({trans, opacity}, i) => (
-                        <ViewportAwareTech 
+                        <Technology 
                             tech={techs[i]} 
                             style={{
                                 transform: (trans as OpaqueInterpolation<number>).interpolate(v => `translateY(${v}%)`),
                                 opacity
                             }}
                             key={`tech-${i}`}
+                            ref={ref}
                         />
                     ))
                 }

@@ -1,5 +1,5 @@
 import { animated } from "react-spring"
-import { CSSProperties } from "react";
+import { CSSProperties, forwardRef } from "react";
 import styled from "styled-components";
 
 export type Tech = {
@@ -33,9 +33,9 @@ const Container = styled(animated.div)`
     }
 `;
 
-const Technology: React.FC<TechProp> = ({ tech, style }) => {
+const Technology = forwardRef<HTMLDivElement, TechProp>(({ tech, style }, ref) => {
     return (
-        <Container style={style}>
+        <Container style={style} ref={ref}>
             <img src={tech.image} alt={`${tech.name} logo image`}/>
             <i> {tech.name} </i>
             <style jsx>{`
@@ -58,6 +58,6 @@ const Technology: React.FC<TechProp> = ({ tech, style }) => {
             `}</style>
         </Container>
     );
-}
+});
 
 export default Technology;
