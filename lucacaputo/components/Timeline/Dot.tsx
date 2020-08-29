@@ -4,10 +4,10 @@ import styled from "styled-components";
 import useMeasure from "react-use-measure";
 import { ResizeObserver } from "@juggle/resize-observer";
 import { useState } from "react";
-import InViewport from "../InViewport";
 import Tooltip from "./Tooltip";
 import { getDateRange } from "./Helpers";
 import Line from "./Line";
+import Viewport from "../ViewportWrapperRenderProps";
 
 interface DotProps {
     event: TimeEvent;
@@ -36,12 +36,14 @@ const Dot: React.FC<DotProps> = ({ event, last }) => {
             <div className="dotWrapper" ref={ref}>
                 <div className="dotAndTooltip">
                     <div className="dot" onClick={() => setDescVisible(v => !v)} />
-                    <InViewport
-                        onEnter={() => setTooltipVisible(true)}
-                        onExit={() => setTooltipVisible(false)}
+                    <Viewport
+                        onEnterViewport={() => setTooltipVisible(true)}
+                        onExitViewport={() => setTooltipVisible(false)}
                     >
-                        <Tooltip text={date} visible={tooltipVisible} />
-                    </InViewport>
+                        {
+                            ref => <Tooltip text={date} visible={tooltipVisible} ref={ref as React.RefObject<HTMLDivElement>} />
+                        }
+                    </Viewport>
                 </div>
                 <Description style={{ flex }}>
                     <div className="arrow" />

@@ -1,5 +1,6 @@
 import { animated, useSpring, config } from "react-spring";
 import styled from "styled-components";
+import { forwardRef } from "react";
 
 interface TooltipProps {
     text: string;
@@ -19,7 +20,7 @@ const AnimatedTooltip = styled(animated.div)`
     }
 `;
 
-const Tooltip: React.FC<TooltipProps> = ({ text, visible }) => {
+const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(({ text, visible }, ref) => {
     const { trans, opacity } = useSpring({
         from: { trans: [150, 0], opacity: 0 },
         trans: visible ? [-120, 1] : [150, 0],
@@ -33,6 +34,7 @@ const Tooltip: React.FC<TooltipProps> = ({ text, visible }) => {
                 transform: trans.interpolate((tr, sc) => `translate(-50%, ${tr}%) scale(${sc})`),
                 opacity
             }}
+            ref={ref}
         >
             <p className="tooltipText">
                 { text }
@@ -60,6 +62,6 @@ const Tooltip: React.FC<TooltipProps> = ({ text, visible }) => {
             `}</style>
         </AnimatedTooltip>
     );
-}
+})
 
 export default Tooltip;
