@@ -9,6 +9,7 @@ import { isMobile } from "react-device-detect";
 import Timeline from "../components/Timeline/Timeline";
 import { events } from "../components/Timeline/Events";
 import Technologies from "../components/Technologies/Technologies";
+import About from "../components/About/About";
 
 const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);
@@ -26,6 +27,14 @@ const Home = () => {
             </div>
             <div className="particlesCont">
                 <ParticlesCanvas partNum={isMobile ? 40 : 100} proximity_threshold={isMobile ? 50 : 100} />
+            </div>
+            <div className="mainContainer" style={{ 
+                backgroundColor: "#162447", 
+                borderRadius: 3, 
+                boxShadow: "0 0 6px #141414", 
+                marginTop: 50, marginBottom: 50,
+                }}>
+                <About />
             </div>
             <div className="mainContainer noEvts" style={{ zIndex: 1, marginTop: 150 }} ref={scrollHere}>
                 <Timeline events={events} />
