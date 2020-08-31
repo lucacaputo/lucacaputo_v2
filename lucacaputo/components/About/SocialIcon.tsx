@@ -1,17 +1,17 @@
-import { animated, useSpring } from "react-spring";
+import { animated, useSpring, AnimatedValue } from "react-spring";
 import styled from "styled-components";
-import { CSSProperties } from "react";
+import Insta from "../../svgs/InstaWhite";
 
-interface SocialIconProps {
+interface SocialIconProps<T extends object> {
     link: string;
-    style: CSSProperties;
-    image: string;
+    style: AnimatedValue<T>;
+    image: (props: object) => React.ReactNode;
 }
 
 const Icon = styled(animated.div)`
     position: relative;
     padding: 10px;
-    border: 1px solid #e43f5a;
+    border: 1px solid;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,27 +20,38 @@ const Icon = styled(animated.div)`
 const AnimatedBackground = styled(animated.div)`
     position: absolute;
     left: 0;
-    top: 0;
+    bottom: 0;
     width: 100%;
     background-color: #fff;
+    z-index: -1;
 `;
 
-const SocialIcon: React.FC<SocialIconProps> = ({ style, link, image }) => {
-    const [{ height }, setHeight] = useSpring(() => ({
-        height: 0
+const SocialIcon: React.FC<SocialIconProps<any>> = ({ style, link, image }) => {
+    const [{ height, fill }, setHeight] = useSpring(() => ({
+        height: 0,
+        fill: "#e43f5a",
     }));
     return (
         <Icon 
-            style={style}
-            onMouseEnter={() => setHeight({ height: 100 })}
-            onMouseLeave={() => setHeight({ height: 0 })}
+            style={{
+                ...style,
+                borderColor: fill,
+            }}
+            onMouseEnter={() => setHeight({ height: 100, fill: "#000000" })}
+            onMouseLeave={() => setHeight({ height: 0, fill: "#e43f5a" })}
         >
             <a href={link} target="_blank">
-                <img src={image} alt={`${image} social logo`} />
+                { image({ style: { fill } }) }
             </a>
             <AnimatedBackground style={{
                 height: height.interpolate(h => `${h}%`),
             }} />
+            <style jsx>{`
+                a {
+                    display: block;
+                    line-height: 0;
+                }
+            `}</style>
         </Icon>
     );
 }

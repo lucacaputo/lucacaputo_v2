@@ -1,3 +1,6 @@
+import List from "./SocialIconList";
+import socials from "./socials";
+
 const About: React.FC = () => {
     return (
         <div className="aboutContainer">
@@ -18,7 +21,7 @@ const About: React.FC = () => {
                 vehicula orci vulputate.
             </p>
             <div className="socialLinks">
-
+                <List socials={socials} />
             </div>
             <style jsx>{`
                 .aboutContainer {
@@ -43,7 +46,8 @@ const About: React.FC = () => {
                 }
                 .socialLinks {
                     margin-top: 60px;
-                    width: 100%;
+                    width: 50%;
+                    margin: auto;
                     position: relative;
                 }
             `}</style>
