@@ -45,10 +45,15 @@ const About: React.FC = () => {
                     color: #fff;
                 }
                 .socialLinks {
-                    margin-top: 60px;
                     width: 50%;
-                    margin: auto;
+                    margin: 60px auto 0 auto;
                     position: relative;
+                }
+                @media screen and (max-width: 600px) {
+                    .socialLinks {
+                        width: 100%;
+                        padding: 0 15px;
+                    }
                 }
             `}</style>
         </div>
