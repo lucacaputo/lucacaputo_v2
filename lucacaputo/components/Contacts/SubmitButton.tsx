@@ -56,7 +56,7 @@ const SubmitButton = forwardRef<HTMLButtonElement, ButtonProps>(({
         color: hover ? "#ffffff" : "#1b1b2f",
         delay: hover ? 200 : 600,
     })
-    useChain(hover ? [firstAnimation, secondAnimation] : [secondAnimation, firstAnimation], [0, 0.4]);
+    useChain(hover ? [firstAnimation, secondAnimation] : [secondAnimation, firstAnimation], hover ? [0, 0.55] : [0, 0.40]);
     return (
         <div className="buttonWrap">
             <Btn
@@ -75,12 +75,12 @@ const SubmitButton = forwardRef<HTMLButtonElement, ButtonProps>(({
                 left: 0,
                 backgroundColor: "#1b1b2f",
                 height: spring_one.height.interpolate({
-                    range: [0, 65, 100],
-                    output: [0, 100, 0]
+                    range: hover ? [0, 65, 90, 100] : [0, 10, 35, 100],
+                    output: [0, 100, 100, 0]
                 }).interpolate(h => `${h}%`),
                 bottom: spring_one.bottom.interpolate({
-                    range: [0, 65, 100],
-                    output: [0, 0, 100]
+                    range: hover ? [0, 65, 90, 100] : [0, 10, 35, 100],
+                    output: [0, 0, 0, 100]
                 }).interpolate(t => `${t}%`),
                 zIndex: 1,
             }} />
