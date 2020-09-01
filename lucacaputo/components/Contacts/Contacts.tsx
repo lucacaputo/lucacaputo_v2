@@ -11,6 +11,7 @@ const Contacts: React.FC = () => {
                     border-radius: 3px;
                     box-shadow: 0 0 6px #141414;
                     margin-top: 50px;
+                    padding: 20px;
                 }
                 h1 {
                     font-size: 50px;

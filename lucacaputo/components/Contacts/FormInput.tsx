@@ -76,7 +76,7 @@ const TextInput: React.FC<TextInputProps> = ({ fieldName, type, placeholder, tit
                     font-size: 1rem;
                     letter-spacing: 1.5px;
                     font-weight: 300;
-                    padding: 5px 10px;
+                    padding: 10px;
                     display: block;
                     outline: none;
                     width: 100%;

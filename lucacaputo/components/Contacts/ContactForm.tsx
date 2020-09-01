@@ -38,7 +38,7 @@ const ContactForm: React.FC = () => {
                                         fieldName="name"
                                         type="text"
                                         title="name"
-                                        placeholder="name"
+                                        placeholder="Name"
                                         hasError={errors.name && touched.name}
                                     />
                                     <Input 
