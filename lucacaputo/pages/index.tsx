@@ -10,6 +10,7 @@ import Timeline from "../components/Timeline/Timeline";
 import { events } from "../components/Timeline/Events";
 import Technologies from "../components/Technologies/Technologies";
 import About from "../components/About/About";
+import Contacts from "../components/Contacts/Contacts";
 
 const Home = () => {
     const scrollHere = useRef<null | HTMLDivElement>(null);
@@ -40,6 +41,9 @@ const Home = () => {
                 <Timeline events={events} />
             </div>
             <Technologies />
+            <div className="mainContainer">
+                <Contacts />
+            </div>
             <style jsx>{`
                 .head {
                     position: relative;
