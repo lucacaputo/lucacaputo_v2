@@ -1,10 +1,11 @@
 import List from "./SocialIconList";
 import socials from "./socials";
+import Title from "../SectionTitle";
 
 const About: React.FC = () => {
     return (
         <div className="aboutContainer">
-            <h1>About Me</h1>
+            <Title>About Me</Title>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                 Quisque id sagittis nibh, vitae hendrerit risus. Quisque 
@@ -28,15 +29,6 @@ const About: React.FC = () => {
                     position: relative;
                     width: 100%;
                     padding: 1rem 0;
-                }
-                h1 {
-                    font-size: 50px;
-                    font-weight: 700;
-                    text-align: center;
-                    margin-bottom: 25px;
-                    letter-spacing: 2px;
-                    text-transform: uppercase;
-                    color: #e43f5a;
                 }
                 p {
                     font-size: 18px;

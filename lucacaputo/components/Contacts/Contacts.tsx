@@ -1,13 +1,14 @@
 import ContactForm from "./ContactForm";
+import Title from "../SectionTitle";
 
 const Contacts: React.FC = () => {
     return (
         <div className="contactWrapper">
-            <h1>Get in touch!</h1>
+            <Title>Get in touch!</Title>
             <ContactForm />
             <style jsx>{`
                 .contactWrapper {
-                    background-color: #1b1b2f;
+                    background-color: #162447;
                     border-radius: 3px;
                     box-shadow: 0 0 6px #141414;
                     margin-top: 50px;
