@@ -2,6 +2,7 @@ import Technology, { Tech } from "./Technology";
 import { useTrail, OpaqueInterpolation } from "react-spring";
 import { useRef, useEffect } from "react";
 import { isInViewport } from "../Helpers";
+import Title from "../SectionTitle";
 
 interface TechSectionProps {
     title: string;
@@ -24,7 +25,11 @@ const TechSection: React.FC<TechSectionProps> = ({ title, techs }) => {
     }, []);
     return (
         <div className="techSection">
-            <h2> {title} </h2>
+            <Title style={{
+                left: "auto",
+                transform: "none",
+                margin: "40px 0",
+            }}> {title} </Title>
             <div className="techWrapper">
                 {
                     trail.map(({trans, opacity}, i) => (

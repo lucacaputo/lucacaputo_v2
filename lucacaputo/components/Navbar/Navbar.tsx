@@ -69,7 +69,7 @@ const Navbar: React.FC<NavProps> = ({ links }) => {
             top: 45,
         },
         top: scrollPast ? 0 : 45,
-        config: config.wobbly,
+        config: config.stiff,
         ref: topRef,
     });
     const { back } = useSpring({

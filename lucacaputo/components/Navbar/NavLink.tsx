@@ -49,7 +49,7 @@ const NavLink: React.FC<AnimatedLinkProps> = ({ text, to, style }) => {
                         x="0" y="0"
                         width="500"
                         height="500"
-                        stroke="#fff"
+                        stroke="#e43f5a"
                         strokeWidth={15}
                         fill="transparent"
                         strokeDasharray={2000}

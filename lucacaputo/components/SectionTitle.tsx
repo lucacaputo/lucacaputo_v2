@@ -1,6 +1,12 @@
-const Title: React.FC = ({ children }) => {
+import { CSSProperties } from "react";
+
+interface TitleProps {
+    style?: CSSProperties;
+}
+
+const Title: React.FC<TitleProps> = ({ children, style }) => {
     return (
-        <h1>
+        <h1 style={style}>
             { children }
             <style jsx>{`
                 font-size: 50px;

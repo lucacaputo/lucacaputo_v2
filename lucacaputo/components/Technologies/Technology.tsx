@@ -54,6 +54,7 @@ const Technology = forwardRef<HTMLDivElement, TechProp>(({ tech, style }, ref) =
                     width: 100%;
                     text-align: center;
                     margin-top: 15px;
+                    color: #162447;
                 }
             `}</style>
         </Container>
