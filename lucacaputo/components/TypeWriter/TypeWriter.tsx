@@ -61,7 +61,6 @@ const TypeWriter: React.FC<TypeWriterProps> = ({ wordSequence, beforeSentence, a
                         position: relative;
                         color: ${textColor ?? "#fff"};
                         font-size: ${fontSize ?? 16}px;
-                        line-height: ${fontSize ? fontSize+4 : 20}px;
                         font-family: "Roboto Mono";
                     }
                     .cursor {
