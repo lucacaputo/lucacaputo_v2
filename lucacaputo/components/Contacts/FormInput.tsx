@@ -81,6 +81,7 @@ const TextInput: React.FC<TextInputProps> = ({ fieldName, type, placeholder, tit
                     outline: none;
                     width: 100%;
                     background-color: #fff;
+                    resize: none;
                 }
                 input:focus {
                     outline: none;

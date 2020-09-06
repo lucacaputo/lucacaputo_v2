@@ -13,7 +13,12 @@ const H1 = styled(animated.h1)`
     margin-block-start: 0;
     margin-block-end: 0;
     font-family: "Roboto Mono";
-    color: #e43f5a;
+    color: #162447;
+    background-color: #e43f5a;
+    display: block;
+    width: max-content;
+    margin: auto;
+    padding: 0 10px;
 `;
 const D2 = styled(animated.div)`
     font-size: 45px;
@@ -142,8 +147,8 @@ const HomeHeader: React.FC = () => {
                             beforeSentence="I'm a"
                             afterSentence="developer"
                             fontSize={45}
-                            bg="transparent"
-                            textColor="#e43f5a"
+                            bg="#e43f5a"
+                            textColor="#162447"
                             timing={200}
                         />
                     </D2>
